@@ -19,6 +19,7 @@ export default function Restaurants(props) {
     <div className="wrap">
       <Navigation
         restaurants={props.restaurants}
+        current={activeRestaurantId}
         onRestaurantClick={setActiveRestaurant}
       />
       <Restaurant rest={activeRestaurant} />

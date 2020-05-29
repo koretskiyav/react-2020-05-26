@@ -27,6 +27,9 @@ nav button {
   border: none;
   transition: linear 0.3s;
 }
+nav button.active {
+  background: #45c249;
+}
 nav button:hover {
   cursor: pointer;
   background: #45c249;
