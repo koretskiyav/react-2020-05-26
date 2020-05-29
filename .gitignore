@@ -26,3 +26,4 @@ yarn-error.log*
 /.idea/react-2020-05-26.iml
 /.idea/vcs.xml
 /.idea/workspace.xml
+/.idea/watcherTasks.xml
