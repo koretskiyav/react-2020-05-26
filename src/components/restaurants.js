@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
-import Menu from './menu';
 import Navigation from './navigation';
+import Restaurant from './Restaurant/Restaurant';
+import img from '../assets/img/HT1.png';
 
 export default function Restaurants(props) {
   const [activeRestaurantId, setActiveRestaurant] = useState(
@@ -21,7 +22,12 @@ export default function Restaurants(props) {
         restaurants={props.restaurants}
         onRestaurantClick={setActiveRestaurant}
       />
-      <Menu menu={activeRestaurant.menu} />
+      <Restaurant
+        menu={activeRestaurant.menu}
+        reviews={activeRestaurant.reviews}
+      />
+      <p style={{ borderTop: '2px solid black' }}>Как я понял задачу:</p>
+      <img src={img} alt={'img'} style={{ width: '100%' }} />
     </div>
   );
 }
