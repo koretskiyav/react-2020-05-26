@@ -8,16 +8,26 @@ function Product(props) {
   const { count, decrement, increment } = props;
 
   return (
-    <div>
-      <p>{props.product.name}</p>
-      <p>{props.product.price} $</p>
-      <button onClick={decrement}>
-        <img src={minus} alt="minus" />
-      </button>
-      {count}
-      <button onClick={increment}>
-        <Plus />
-      </button>
+    <div className="product">
+      <div className="product-name">{props.product.name}</div>
+
+      <h4>Ingredients:</h4>
+      <div className="product-ingredients">
+        {props.product.ingredients.map((ing) => (
+          <span className="ingredient">{ing}</span>
+        ))}
+      </div>
+
+      <div className="product-contorls">
+        <span className="product-price">price: {props.product.price}.$</span>
+        <button onClick={decrement}>
+          <img src={minus} alt="minus" />
+        </button>
+        at cart: {count}
+        <button onClick={increment}>
+          <Plus />
+        </button>
+      </div>
     </div>
   );
 }

@@ -4,7 +4,7 @@ import Review from '../review';
 
 const Reviews = ({ reviews }) => {
   return (
-    <div>
+    <div className="reviews">
       {reviews.map((review) => (
         <Review review={review} />
       ))}
