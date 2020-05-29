@@ -6,6 +6,7 @@ import Plus from '../icons/plus';
 
 function Product(props) {
   const { count, decrement, increment } = props;
+  console.log(props);
 
   return (
     <div>
