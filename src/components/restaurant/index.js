@@ -15,7 +15,7 @@ const Restaurant = ({ rest }) => {
       </section>
       <section>
         <div className="head">
-          <h1>Reviews </h1>{' '}
+          <h1>Reviews </h1>
           <div>
             <span>average rate</span>
             <Rate
