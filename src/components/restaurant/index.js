@@ -19,10 +19,10 @@ const Restaurant = ({ rest }) => {
           <div>
             <span>average rate</span>
             <Rate
-              rate={
+              rate={Math.floor(
                 rest.reviews.reduce((t, c) => t + c.rating, 0) /
-                rest.reviews.length
-              }
+                  rest.reviews.length
+              )}
             />
           </div>
         </div>
