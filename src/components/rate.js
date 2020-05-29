@@ -1,5 +1,5 @@
 import React from 'react';
 
-const Rate = (props) => <p>Рейтинг: {props.rating}</p>;
+const Rate = (props) => <span>{props.rating}</span>;
 
 export default Rate;
