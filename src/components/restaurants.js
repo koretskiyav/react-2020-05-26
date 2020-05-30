@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
-import Menu from './menu';
+
 import Navigation from './navigation';
+import Restoraunt from './Restaurant';
 
 export default function Restaurants(props) {
   const [activeRestaurantId, setActiveRestaurant] = useState(
@@ -9,9 +10,9 @@ export default function Restaurants(props) {
 
   const activeRestaurant = useMemo(
     () =>
-      props.restaurants.find(
-        (restaurant) => restaurant.id === activeRestaurantId
-      ),
+      props.restaurants.find((restaurant) => {
+        return restaurant.id === activeRestaurantId;
+      }),
     [activeRestaurantId, props.restaurants]
   );
 
@@ -21,7 +22,7 @@ export default function Restaurants(props) {
         restaurants={props.restaurants}
         onRestaurantClick={setActiveRestaurant}
       />
-      <Menu menu={activeRestaurant.menu} />
+      <Restoraunt restorauntData={activeRestaurant} />
     </div>
   );
 }
