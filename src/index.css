@@ -7,7 +7,158 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.wrap {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+nav {
+  position: sticky;
+  top: 0;
+  display: grid;
+  grid-gap: 2px;
+  grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
+}
+nav button {
+  padding: 5px 10px;
+  background: #6a8b6c;
+  color: #fff;
+  border: none;
+  transition: linear 0.3s;
+}
+nav button.active {
+  background: #45c249;
+}
+nav button:hover {
+  cursor: pointer;
+  background: #45c249;
+  transition: linear 0.3s;
+}
+main {
+  width: 100%;
+  display: flex;
+}
+main section {
+  width: calc(50% - 20px);
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+main section .head {
+  text-align: center;
+  margin: 0;
+  background: #cccccc;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/* reviews */
+
+.reviews,
+.products {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 5px;
+  box-sizing: border-box;
+}
+.review,
+.product {
+  width: 80%;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+  align-self: flex-start;
+  overflow: hidden;
+  border: 1px solid #ccc;
+}
+.product {
+  align-self: center;
+  width: 90%;
+  margin: 15px 0;
+}
+.review:nth-child(even) {
+  align-self: flex-end;
+}
+.review-author,
+.product-name {
+  width: 100%;
+  height: 20px;
+  background: #cccccc;
+  padding: 5px;
+}
+.review-text {
+  margin: 10px 0;
+  min-height: 30px;
+  padding: 5px 15px;
+  font-size: 20px;
+  display: grid;
+  place-items: center;
+  font-style: oblique;
+}
+.avgRate {
+  display: flex;
+  align-items: center;
+  margin: 2px 5px;
+}
+.rateBoard {
+  width: max-content;
+  margin: 0 5px;
+  padding: 5px;
+  border: 1px solid #ff9900a8;
+  border-radius: 5px;
+  box-shadow: inset 0 0 4px #fd9902;
+}
+.review .rateBoard {
+  align-self: flex-end;
+  margin: 0 15px 5px;
+}
+.rateBoard img {
+  max-height: 100%;
+  margin: 0 1px;
+}
+.product h4 {
+  padding: 0 5px;
+  margin-bottom: 0;
+}
+.product-ingredients {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+}
+.product-contorls {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  border-top: 1px solid #ccc;
+}
+.product-contorls button {
+  border: none;
+  background: #cccccc;
+  height: 100%;
+  padding: 5px;
+  margin: 0;
+}
+.product-contorls button:hover {
+  cursor: pointer;
+}
+.product-price {
+  font-size: 21px;
+  width: 50%;
+  text-align: center;
+}
+.ingredient {
+  padding: 5px 10px;
+  background: #55dddd;
+  margin: 5px 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #fff;
 }
