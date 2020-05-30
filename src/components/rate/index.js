@@ -10,7 +10,7 @@ const Rate = ({ rate = 2, height = 18 }) => {
       style={{ height: `${height}px` }}
     >
       {stars.map((star, i) => (
-        <img alt="star" src={rate >= i + 1 ? Active : Inactive} />
+        <img key={i} alt="star" src={rate >= i + 1 ? Active : Inactive} />
       ))}
     </div>
   );

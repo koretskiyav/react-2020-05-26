@@ -13,8 +13,10 @@ function Product(props) {
 
       <h4>Ingredients:</h4>
       <div className="product-ingredients">
-        {props.product.ingredients.map((ing) => (
-          <span className="ingredient">{ing}</span>
+        {props.product.ingredients.map((ing, i) => (
+          <span key={i} className="ingredient">
+            {ing}
+          </span>
         ))}
       </div>
 
