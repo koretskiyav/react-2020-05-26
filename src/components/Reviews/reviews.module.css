@@ -1,0 +1,20 @@
+.review {
+  display: block;
+  width: 400px;
+  margin-top: 10px;
+}
+
+.review__header {
+  display: block;
+  width: inherit;
+}
+
+.review__name,
+.review__rating {
+  display: inline-block;
+  width: 50%;
+}
+
+.review__text {
+  display: block;
+}
