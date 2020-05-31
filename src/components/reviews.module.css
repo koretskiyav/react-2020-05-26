@@ -1,0 +1,9 @@
+.reviews {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 50%;
+  border: turquoise solid 1px;
+  margin: 10px;
+  padding: 10px;
+}
