@@ -3,11 +3,11 @@ import Menu from './menu';
 import Reviews from './reviews';
 import Rate from './rate';
 
-import { getReviewsAverageRating } from '../helpers';
+import { calcReviewsAverageRating } from '../helpers';
 
 const Restaurant = ({ data }) => {
   const { name, menu, reviews } = data;
-  const averageRating = getReviewsAverageRating(reviews);
+  const averageRating = calcReviewsAverageRating(reviews);
 
   return (
     <div>
