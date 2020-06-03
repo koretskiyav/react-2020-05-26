@@ -15,4 +15,8 @@ Rate.propTypes = {
   value: PropTypes.number,
 };
 
+Rate.defaultProps = {
+  value: 0,
+};
+
 export default Rate;

@@ -51,8 +51,14 @@ Product.propTypes = {
     ingredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   }).isRequired,
   amount: PropTypes.number,
-  decrement: PropTypes.func,
-  increment: PropTypes.func,
+  decrement: PropTypes.func.isRequired,
+  increment: PropTypes.func.isRequired,
+};
+
+Product.defaultProps = {
+  name: 'Product',
+  price: 'Price not Load',
+  amount: 0,
 };
 
 export default counter(Product);

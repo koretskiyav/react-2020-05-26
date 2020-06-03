@@ -19,11 +19,11 @@ const Navigation = ({ restaurants, onRestaurantClick }) => (
 Navigation.propTypes = {
   restaurants: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string,
-      name: PropTypes.string,
-    })
-  ),
-  onRestaurantClick: PropTypes.func,
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
+  onRestaurantClick: PropTypes.func.isRequired,
 };
 
 export default Navigation;

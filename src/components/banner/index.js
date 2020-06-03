@@ -17,13 +17,15 @@ const Banner = ({ img, heading, description, children }) => (
 );
 
 Banner.propTypes = {
-  heading: PropTypes.string,
+  img: PropTypes.string,
+  heading: PropTypes.string.isRequired,
   description: PropTypes.string,
-  children: PropTypes.element,
+  children: PropTypes.element.isRequired,
 };
 
 Banner.defaultProps = {
   img: DefaultBanner,
+  description: '',
 };
 
 export default Banner;
