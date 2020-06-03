@@ -2,17 +2,17 @@ import React from 'react';
 import useAmount from '../hooks/use-amount';
 
 export default (WrappedComponent) => (props) => {
-  const amountProps = useAmount(3);
+  const amountProps = useAmount();
   return <WrappedComponent {...props} {...amountProps} />;
 };
 
 // export default (WrappedComponent) => {
 //   const HocComponent = (props) => {
-//     const { count, decrement, increment } = useAmount(5);
+//     const { amount, decrement, increment } = useAmount(5);
 //     return (
 //       <WrappedComponent
 //         {...props}
-//         count={count}
+//         amount={amount.toString()}
 //         decrement={decrement}
 //         increment={increment}
 //       />
