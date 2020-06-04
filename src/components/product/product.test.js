@@ -2,9 +2,9 @@ import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import Product from './product';
+import Product from 'components/product';
 
-import { restaurants } from '../../fixtures';
+import { restaurants } from 'fixtures';
 
 const product = restaurants[0].menu[0];
 
@@ -23,6 +23,21 @@ describe('Product', () => {
     const component = mount(<Product product={product} />);
     component.find('[data-id="product-increment"]').simulate('click');
     expect(component.find('[data-id="product-amount"]').text()).toBe('1');
+  });
+  it('should decrement amount', () => {
+    const component = mount(<Product product={product} />);
+    const incrementBtn = component.find('[data-id="product-increment"]');
+    const decrementBtn = component.find('[data-id="product-decrement"]');
+
+    incrementBtn.simulate('click');
+
+    expect(component.find('[data-id="product-amount"]').text()).toBe('1');
+
+    decrementBtn.simulate('click');
+    decrementBtn.simulate('click');
+    decrementBtn.simulate('click');
+
+    expect(component.find('[data-id="product-amount"]').text()).toBe('0');
   });
   it('should fetch data', () => {
     const fn = jest.fn();
