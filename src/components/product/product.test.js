@@ -30,3 +30,23 @@ describe('Product', () => {
     expect(fn).toBeCalledWith(product.id);
   });
 });
+
+describe('amount zero test', () => {
+  it('init amount 0', () =>
+    expect(
+      mount(<Product product={product} />)
+        .find('[data-id="product-amount"]')
+        .text()
+    ).toBe('0'));
+
+  it('amount is 0', () => {
+    const component = mount(<Product product={product} />);
+
+    component
+      .find('[data-id="product-decrement"]')
+      .simulate('click')
+      .simulate('click');
+
+    expect(component.find('[data-id="product-amount"]').text()).toBe('0');
+  });
+});
