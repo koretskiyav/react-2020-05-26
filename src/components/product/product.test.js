@@ -29,4 +29,23 @@ describe('Product', () => {
     mount(<Product product={product} fetchData={fn} />);
     expect(fn).toBeCalledWith(product.id);
   });
+  it('should increment and decrement amount', () => {
+    const component = mount(<Product product={product} />);
+    component.find('[data-id="product-increment"]').simulate('click');
+    expect(component.find('[data-id="product-amount"]').text()).toBe('1');
+    component.find('[data-id="product-decrement"]').simulate('click');
+    expect(component.find('[data-id="product-amount"]').text()).toBe('0');
+  });
+  // todo передать в компонент amount = 2, до клика
+  // it('should decrement amount option 2', () => {
+  //   const component = mount(<Product product={product} amount={2}/>); // Почему не сработало с передачей изначального значения amount = 2?
+  //   component.find('[data-id="product-decrement"]').simulate('click');
+  //   expect(component.find('[data-id="product-amount"]').text()).toBe('1');
+  // });
+  // it('should decrement amount option 2', () => {
+  //   const component = mount(<Product product={product}/>);
+  //   component.setProps({amount: 2});
+  //   component.find('[data-id="product-decrement"]').simulate('click');
+  //   expect(component.find('[data-id="product-amount"]').text()).toBe('1');
+  // });
 });

@@ -26,7 +26,11 @@ const Product = ({ product, amount, increment, decrement, fetchData }) => {
               {amount}
             </div>
             <div className={styles.buttons}>
-              <button className={styles.button} onClick={decrement}>
+              <button
+                className={styles.button}
+                onClick={decrement}
+                data-id="product-decrement"
+              >
                 <img src={MinusIcon} alt="minus" />
               </button>
               <button
@@ -51,8 +55,14 @@ Product.propTypes = {
     ingredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   }).isRequired,
   amount: PropTypes.number,
-  decrement: PropTypes.func,
-  increment: PropTypes.func,
+  decrement: PropTypes.func.isRequired,
+  increment: PropTypes.func.isRequired,
+};
+
+Product.defaultProps = {
+  name: 'Product',
+  price: 'Price not Load',
+  amount: 0,
 };
 
 export default counter(Product);
