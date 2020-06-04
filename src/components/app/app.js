@@ -1,14 +1,23 @@
 import React, { PureComponent } from 'react';
-import Restaurants from '../restaurants';
-import Header from '../header';
+import PropTypes from 'prop-types';
+import Restaurants from 'components/restaurants';
+import Header from 'components/header';
 
-export default class App extends PureComponent {
+class App extends PureComponent {
   render() {
+    const { restaurants } = this.props;
+
     return (
       <div>
         <Header />
-        <Restaurants restaurants={this.props.restaurants} />
+        <Restaurants restaurants={restaurants} />
       </div>
     );
   }
 }
+
+App.propTypes = {
+  restaurants: PropTypes.array.isRequired,
+};
+
+export default App;

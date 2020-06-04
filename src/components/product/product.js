@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styles from './product.module.css';
-import MinusIcon from './icons/minus.svg';
-import PlusIcon from './icons/plus.svg';
+import MinusIcon from 'assets/images/minus.svg';
+import PlusIcon from 'assets/images/plus.svg';
 
-import counter from '../../hocs/counter';
+import counter from 'hocs/counter';
 
 const Product = ({ product, amount, increment, decrement, fetchData }) => {
   useEffect(() => {
@@ -26,7 +26,11 @@ const Product = ({ product, amount, increment, decrement, fetchData }) => {
               {amount}
             </div>
             <div className={styles.buttons}>
-              <button className={styles.button} onClick={decrement}>
+              <button
+                className={styles.button}
+                onClick={decrement}
+                data-id="product-decrement"
+              >
                 <img src={MinusIcon} alt="minus" />
               </button>
               <button
@@ -53,6 +57,7 @@ Product.propTypes = {
   amount: PropTypes.number,
   decrement: PropTypes.func,
   increment: PropTypes.func,
+  fetchData: PropTypes.func,
 };
 
 export default counter(Product);

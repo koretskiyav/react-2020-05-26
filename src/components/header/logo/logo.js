@@ -1,6 +1,6 @@
 import React from 'react';
 
-import LogoImg from './logo.svg';
+import LogoImg from 'assets/images/logo.svg';
 
 const Logo = () => (
   <a href={'/'}>
