@@ -29,4 +29,19 @@ describe('Product', () => {
     mount(<Product product={product} fetchData={fn} />);
     expect(fn).toBeCalledWith(product.id);
   });
+
+  it('should decrement amount', () => {
+    const component = mount(<Product product={product} />);
+    component.find('[data-id="product-increment"]').simulate('click');
+    expect(component.find('[data-id="product-amount"]').text()).toBe('1');
+    component.find('[data-id="product-decrement"]').simulate('click');
+    expect(component.find('[data-id="product-amount"]').text()).toBe('0');
+  });
+  it('should decrement amount not less 0', () => {
+    const component = mount(<Product product={product} />);
+    component.find('[data-id="product-decrement"]').simulate('click');
+    expect(component.find('[data-id="product-amount"]').text()).toBe('0');
+  });
+
+
 });
