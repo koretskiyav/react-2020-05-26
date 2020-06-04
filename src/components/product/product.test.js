@@ -19,6 +19,11 @@ describe('Product', () => {
     const component = mount(<Product product={product} />);
     expect(component.find('[data-id="product-amount"]').text()).toBe('0');
   });
+  it('should decrement amount', () => {
+    const component = mount(<Product product={product} />);
+    component.find('[data-id="product-decrement"]').simulate('click');
+    expect(component.find('[data-id="product-amount"]').text()).toBe('0');
+  });
   it('should increment amount', () => {
     const component = mount(<Product product={product} />);
     component.find('[data-id="product-increment"]').simulate('click');
