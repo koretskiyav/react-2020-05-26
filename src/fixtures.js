@@ -165,3 +165,5 @@ const restaurants = [
   },
 ];
 export { restaurants };
+
+window.restaurants = restaurants;
