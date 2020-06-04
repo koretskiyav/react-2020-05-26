@@ -36,10 +36,9 @@ describe('Product', () => {
     if (amount === 0) {
       component.find('[data-id="product-decrement"]').simulate('click');
       expect(amount.text()).toBe('0');
-    } else if (amount === 1) {
-      // в идеале хотел написать просто if
+    } else if (amount > 0) {
       component.find('[data-id="product-decrement"]').simulate('click');
-      expect(amount.text()).toBe('0'); // а здесь что-то вроде toBe(`${amount}-1`), но так не работает
+      expect(amount.text()).toBe(amount - 1);
     }
   });
 });
