@@ -1,4 +1,6 @@
 import React, { useState, useMemo } from 'react';
+import PropTypes from 'prop-types';
+
 import Restaurant from '../restaurant';
 import Navigation from '../navigation';
 
@@ -19,6 +21,13 @@ const Restaurants = ({ restaurants }) => {
       <Restaurant restaurant={activeRestaurant} />
     </div>
   );
+};
+
+// непонятно надо ли обращаться к id здесь, если такая же проверка делается в App
+Restaurants.propTypes = {
+  restaurants: PropTypes.arrayOf(
+    PropTypes.shape({ id: PropTypes.string.isRequired })
+  ),
 };
 
 export default Restaurants;

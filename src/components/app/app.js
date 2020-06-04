@@ -5,17 +5,10 @@ import PropTypes from 'prop-types';
 
 export default class App extends PureComponent {
   static propTypes = {
-    restaurants: PropTypes.arrayOf(),
+    restaurants: PropTypes.arrayOf(PropTypes.object).isRequired,
   };
 
-  // static propTypes = {
-  //   menu: PropTypes.arrayOf(
-  //     PropTypes.shape({ id: PropTypes.string.isRequired }).isRequired
-  //   ).isRequired,
-  // };
-
   render() {
-    console.log(this.props.restaurants);
     return (
       <div>
         <Header />
