@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './banner.module.css';
 
-import defaultBanner from './banner.jpg';
+import DefaultBanner from './banner.jpg';
 
-const Banner = ({ img = defaultBanner, heading, description, children }) => (
+const Banner = ({ img = DefaultBanner, heading, description, children }) => (
   <div className={styles.banner}>
     <img src={img} className={styles.img} alt="banner" />
     <div className={styles.caption}>
