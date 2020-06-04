@@ -29,4 +29,17 @@ describe('Product', () => {
     mount(<Product product={product} fetchData={fn} />);
     expect(fn).toBeCalledWith(product.id);
   });
+
+  it('should decrement amount', () => {
+    const component = mount(<Product product={product} />);
+    const amount = component.find('[data-id="product-amount"]');
+    if (amount === 0) {
+      component.find('[data-id="product-decrement"]').simulate('click');
+      expect(amount.text()).toBe('0');
+    } else if (amount === 1) {
+      // в идеале хотел написать просто if
+      component.find('[data-id="product-decrement"]').simulate('click');
+      expect(amount.text()).toBe('0'); // а здесь что-то вроде toBe(`${amount}-1`), но так не работает
+    }
+  });
 });
