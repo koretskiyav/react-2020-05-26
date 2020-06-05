@@ -5,6 +5,7 @@ import Adapter from 'enzyme-adapter-react-16';
 import Product from './product';
 
 import { restaurants } from '../../fixtures';
+import useAmount from '../../hooks/use-amount';
 
 const product = restaurants[0].menu[0];
 
@@ -32,15 +33,10 @@ describe('Product', () => {
 });
 
 describe('amount zero test', () => {
-  it('init amount 0', () =>
-    expect(
-      mount(<Product product={product} />)
-        .find('[data-id="product-amount"]')
-        .text()
-    ).toBe('0'));
-
   it('amount is 0', () => {
-    const component = mount(<Product product={product} />);
+    const component = mount(<Product product={product} initialAmount={1} />);
+
+    expect(component.find('[data-id="product-amount"]').text()).toBe('1');
 
     component
       .find('[data-id="product-decrement"]')
