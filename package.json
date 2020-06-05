@@ -37,9 +37,11 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/react-hooks": "^3.3.0",
     "husky": "^4.2.5",
     "prettier": "^2.0.5",
-    "pretty-quick": "^2.0.1"
+    "pretty-quick": "^2.0.1",
+    "react-test-renderer": "^16.13.1"
   },
   "husky": {
     "hooks": {
