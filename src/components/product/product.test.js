@@ -29,4 +29,16 @@ describe('Product', () => {
     mount(<Product product={product} fetchData={fn} />);
     expect(fn).toBeCalledWith(product.id);
   });
+
+  it('should decrement amount', () => {
+    const component = mount(<Product product={product} />);
+    const amount = component.find('[data-id="product-amount"]');
+    if (amount > 0) {
+      component.find('[data-id="product-decrement"]').simulate('click');
+      expect(amount.text()).toBe(amount - 1);
+    } else {
+      component.find('[data-id="product-decrement"]').simulate('click');
+      expect(amount.text()).toBe('0');
+    }
+  });
 });
