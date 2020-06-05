@@ -5,6 +5,7 @@ import Adapter from 'enzyme-adapter-react-16';
 import Product from './product';
 
 import { restaurants } from '../../fixtures';
+import useAmount from '../../hooks/use-amount';
 
 const product = restaurants[0].menu[0];
 
@@ -28,5 +29,20 @@ describe('Product', () => {
     const fn = jest.fn();
     mount(<Product product={product} fetchData={fn} />);
     expect(fn).toBeCalledWith(product.id);
+  });
+});
+
+describe('amount zero test', () => {
+  it('amount is 0', () => {
+    const component = mount(<Product product={product} initialAmount={1} />);
+
+    expect(component.find('[data-id="product-amount"]').text()).toBe('1');
+
+    component
+      .find('[data-id="product-decrement"]')
+      .simulate('click')
+      .simulate('click');
+
+    expect(component.find('[data-id="product-amount"]').text()).toBe('0');
   });
 });
