@@ -4,6 +4,7 @@ import Menu from '../menu';
 import Reviews from '../reviews';
 import Banner from '../banner';
 import Rate from '../rate';
+import Order from '../order';
 import styles from './restaurant.module.css';
 
 const Restaurant = ({ restaurant }) => {
@@ -21,8 +22,9 @@ const Restaurant = ({ restaurant }) => {
       </Banner>
       <div className={styles.restaurant}>
         <Menu menu={menu} />
-        <Reviews reviews={reviews} />
+        <Order />
       </div>
+      <Reviews reviews={reviews} />
     </div>
   );
 };

@@ -1,0 +1,11 @@
+.order {
+  width: 30%;
+  border: 1px solid black;
+  min-height: 100px;
+}
+
+.orderItem {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+}
