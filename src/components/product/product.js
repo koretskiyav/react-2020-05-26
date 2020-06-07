@@ -12,6 +12,7 @@ const Product = ({ product, amount, increment, decrement, fetchData }) => {
     fetchData && fetchData(product.id);
     //eslint-disable-next-line
   }, []);
+  console.log('amount: ', amount);
 
   return (
     <div className={styles.product} data-id="product">
@@ -29,14 +30,19 @@ const Product = ({ product, amount, increment, decrement, fetchData }) => {
             <div className={styles.buttons}>
               <button
                 className={styles.button}
-                onClick={() => decrement(product.id)}
+                onClick={() =>
+                  decrement(product.id, product.name, product.price)
+                }
                 data-id="product-decrement"
+                disabled={amount === 0}
               >
                 <img src={MinusIcon} alt="minus" />
               </button>
               <button
                 className={styles.button}
-                onClick={() => increment(product.id)}
+                onClick={() =>
+                  increment(product.id, product.name, product.price)
+                }
                 data-id="product-increment"
               >
                 <img src={PlusIcon} alt="plus" />
@@ -62,7 +68,9 @@ Product.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  amount: state.order[ownProps.product.id] || 0,
+  amount: state.order[ownProps.product.id]
+    ? state.order[ownProps.product.id].amount
+    : 0,
 });
 
 const mapDispatchToProps = {
