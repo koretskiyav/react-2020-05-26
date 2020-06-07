@@ -23,7 +23,7 @@ Navigation.propTypes = {
       name: PropTypes.string.isRequired,
     }).isRequired
   ).isRequired,
-  onRestaurantChange: PropTypes.func.isRequired,
+  onRestaurantClick: PropTypes.func.isRequired,
 };
 
 export default Navigation;

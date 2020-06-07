@@ -8,6 +8,7 @@ export default class App extends PureComponent {
     return (
       <div>
         <Header />
+        {/* <Order /> */}
         <Restaurants restaurants={this.props.restaurants} />
       </div>
     );
