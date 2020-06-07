@@ -1,0 +1,74 @@
+.orderWrap {
+  width: 100%;
+  height: 50px;
+  background: #cccccc;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  justify-content: flex-start;
+  transition: linear 0.3s;
+}
+.open {
+  height: 250px;
+}
+.orderTitle {
+  width: 100%;
+  min-height: 50px;
+  background: var(--black);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+  box-sizing: border-box;
+}
+.orderDetails {
+  width: 100%;
+  overflow-y: auto;
+  padding: 15px 0;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 50px 50px 50px;
+  align-items: center;
+  row-gap: 5px;
+}
+
+.button {
+  color: var(--white);
+  background-color: var(--yellow);
+  border: 1px solid var(--yellow);
+  border-radius: 2px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  text-transform: uppercase;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-weight: 700;
+  font-size: 22px;
+  outline: none;
+  box-shadow: none;
+  cursor: pointer;
+  text-align: center;
+}
+.alert {
+  background: #f44336;
+}
+
+.toggler {
+  border: none;
+  background: #ffffff;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 17px;
+}
+.toggler:hover {
+  cursor: pointer;
+  background: #5d5858;
+  color: #fff;
+}
+.toggler:focus,
+.toggler:active {
+  outline: 0;
+}
