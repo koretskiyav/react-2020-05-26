@@ -14,12 +14,13 @@ export default (state = {}, action) => {
         },
       };
     case DECREMENT:
+      const amount = ((state[product.id] && state[product.id].amount) || 0) - 1;
       return {
         ...state,
         [product.id]: {
           ...(state[product.id] || {}),
           ...product,
-          amount: ((state[product.id] && state[product.id].amount) || 0) - 1,
+          amount: amount < 0 ? 0 : amount,
         },
       };
     case REMOVE:
