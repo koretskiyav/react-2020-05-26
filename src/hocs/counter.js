@@ -1,5 +1,5 @@
 import React from 'react';
-import useAmount from '../hooks/use-amount';
+import useAmount from '../hooks/useAmount';
 
 export default (WrappedComponent) => ({ initialCount, ...props }) => {
   const amountProps = useAmount(initialCount);
