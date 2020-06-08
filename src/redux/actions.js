@@ -1,4 +1,17 @@
-import { INCREMENT, DECREMENT } from './constants';
+import { INCREMENT, DECREMENT, REMOVE } from './constants';
 
-export const increment = (id) => ({ type: INCREMENT, payload: { id } });
-export const decrement = (id) => ({ type: DECREMENT, payload: { id } });
+export const increment = (id, product) => ({
+  type: INCREMENT,
+  payload: { id },
+  product: product,
+});
+export const decrement = (id, product) => ({
+  type: DECREMENT,
+  payload: { id },
+  product: product,
+});
+export const remove = (id, product) => ({
+  type: REMOVE,
+  payload: { id },
+  product: product,
+});
