@@ -16,7 +16,7 @@
   }
 
   .menu > *:first-child {
-    flex: 1 0 calc(100% - 400px - 2 * 24px);
+    flex: 1 0 calc(100% - 600px - 2 * 24px);
   }
 
   .menu > *:last-child {
