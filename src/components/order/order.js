@@ -46,7 +46,9 @@ const Order = ({ isToggled, toggle, orderedProducts, total }) => {
 Order.propTypes = {
   isToggled: PropTypes.bool.isRequired,
   toggle: PropTypes.func.isRequired,
-  orderedProducts: PropTypes.array.isRequired,
+  orderedProducts: PropTypes.arrayOf(
+    PropTypes.shape({ id: PropTypes.string.isRequired })
+  ).isRequired,
   total: PropTypes.number.isRequired,
 };
 
