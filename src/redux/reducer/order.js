@@ -1,4 +1,4 @@
-import { INCREMENT, DECREMENT, CLEAR_CART } from '../constants';
+import { INCREMENT, DECREMENT, DELETE_PRODUCT } from '../constants';
 
 // { [productId]: amount }
 export default (state = {}, action) => {
@@ -9,8 +9,9 @@ export default (state = {}, action) => {
         ...state,
         [payload.id]: {
           amount: state[payload.id] ? state[payload.id].amount + 1 : 1,
-          name: payload.name,
-          price: payload.price,
+          name: payload.name || state[payload.id].name,
+          price: payload.price || state[payload.id].price,
+          id: payload.id,
         },
       };
     case DECREMENT:
@@ -18,14 +19,20 @@ export default (state = {}, action) => {
         ...state,
         [payload.id]: {
           amount: state[payload.id] ? state[payload.id].amount - 1 : 0,
-          name: payload.name,
-          price: payload.price,
+          name: payload.name || state[payload.id].name,
+          price: payload.price || state[payload.id].price,
+          id: payload.id,
         },
       };
-    case CLEAR_CART:
+    case DELETE_PRODUCT:
       return {
         ...state,
-        // todo удалить все [payload.id]
+        [payload.id]: {
+          amount: 0,
+          name: state[payload.id].name,
+          price: state[payload.id].price,
+          id: payload.id,
+        },
       };
     default:
       return state;

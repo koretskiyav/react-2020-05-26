@@ -2,9 +2,10 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styles from './Order.module.scss';
 import { connect } from 'react-redux';
+import { decrement, deleteProduct, increment } from '../../redux/actions';
 
 const Order = (props) => {
-  const { order } = props;
+  const { order, increment, decrement, deleteProduct } = props;
   const productsInOrder = Object.values(order);
 
   const getTotalPrice = useMemo(
@@ -15,7 +16,6 @@ const Order = (props) => {
       }, 0),
     [productsInOrder]
   );
-  const handleClick = () => {};
 
   return (
     <>
@@ -31,7 +31,12 @@ const Order = (props) => {
                     <div className={styles.product}>
                       <div>{item.name}</div>
                       <div>Amount: {item.amount}</div>
+                      <div>
+                        <button onClick={() => decrement(item.id)}>-</button>
+                        <button onClick={() => increment(item.id)}>+</button>
+                      </div>
                       <div>Price: {item.price * item.amount}</div>
+                      <button onClick={() => deleteProduct(item.id)}>X</button>
                     </div>
                   </div>
                 )}
@@ -39,7 +44,6 @@ const Order = (props) => {
             );
           })}
           <div className={styles.totalPrice}>TotalPrice: {getTotalPrice}</div>
-          <button onClick={() => handleClick}>Clear cart</button>
         </div>
       )}
     </>
@@ -58,5 +62,9 @@ export default connect(
   (state) => ({
     order: state.order,
   }),
-  null
+  {
+    increment,
+    decrement,
+    deleteProduct,
+  }
 )(Order);

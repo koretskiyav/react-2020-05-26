@@ -1,4 +1,4 @@
-import { INCREMENT, DECREMENT, CLEAR_CART } from './constants';
+import { INCREMENT, DECREMENT, DELETE_PRODUCT } from './constants';
 
 export const increment = (id, name, price) => ({
   type: INCREMENT,
@@ -8,4 +8,7 @@ export const decrement = (id, name, price) => ({
   type: DECREMENT,
   payload: { id, name, price },
 });
-export const clearCart = () => ({ type: CLEAR_CART });
+export const deleteProduct = (id) => ({
+  type: DELETE_PRODUCT,
+  payload: { id },
+});
