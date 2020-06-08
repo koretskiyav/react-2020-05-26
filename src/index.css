@@ -1,6 +1,7 @@
 @import '~normalize.css/normalize.css';
 :root {
   --black: #1d1d1d;
+  --black-light: rgba(0, 0, 0, 0.75);
   --white: #ffffff;
   --yellow: #f0ad4e;
   --yellow-light: #ffd25d;
