@@ -31,6 +31,7 @@ const Product = ({ product, amount, increment, decrement, fetchData }) => {
                 className={styles.button}
                 onClick={() => decrement(product.id)}
                 data-id="product-decrement"
+                disabled={amount === 0}
               >
                 <img src={MinusIcon} alt="minus" />
               </button>

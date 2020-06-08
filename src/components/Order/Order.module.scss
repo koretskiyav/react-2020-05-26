@@ -1,0 +1,28 @@
+.order {
+  display: grid;
+  grid-gap: 0.5rem;
+  padding: 1rem;
+  border: 1px solid var(--grey);
+  position: relative;
+}
+
+.product {
+  display: grid;
+  grid-template-columns: auto auto auto auto 1fr;
+  grid-gap: 2rem;
+  align-items: center;
+}
+
+.amount {
+  display: grid;
+  grid-template-columns: min-content min-content auto;
+  grid-gap: 0.5rem;
+  align-items: center;
+}
+
+.totalPrice {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-weight: bold;
+}
