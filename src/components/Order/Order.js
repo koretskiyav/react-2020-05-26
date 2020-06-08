@@ -18,8 +18,6 @@ const Order = (props) => {
   const totalPrice = useMemo(
     () =>
       orderMenu.reduce((acc, item) => {
-        console.log('acc: ', acc);
-        console.log('item.price: ', item.price);
         return (acc += item.price * order[item.id]);
       }, 0),
     [orderMenu]
