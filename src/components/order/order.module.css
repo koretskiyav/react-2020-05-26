@@ -1,0 +1,26 @@
+.order {
+  padding: 12px 24px;
+  border-bottom: 1px solid var(--black);
+}
+
+.orderList {
+  list-style: none;
+  padding: 0;
+}
+
+.orderListItem,
+.orderTotal {
+  display: flex;
+}
+
+.orderTotal {
+  justify-content: space-between;
+}
+
+.orderTotal .orderListPoint:last-child {
+  text-align: right;
+}
+
+.orderListPoint {
+  flex-basis: 20%;
+}
