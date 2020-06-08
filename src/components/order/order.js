@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styles from './order.module.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -6,6 +6,15 @@ import { increment, decrement, nullify } from '../../redux/actions';
 import OrderItem from './orderItem';
 
 const Order = ({ order, increment, decrement, nullify }) => {
+  const totalSum = useMemo(
+    () =>
+      [...order.filter((item) => item.amount >= 1)].reduce(
+        (acc, item) => (acc += item.price * item.amount),
+        0
+      ) || [],
+    [order]
+  );
+  
   const cart = order.map((item) => {
     return (
       <OrderItem
@@ -18,7 +27,13 @@ const Order = ({ order, increment, decrement, nullify }) => {
     );
   });
 
-  return <div className={styles.order}>{cart}</div>;
+  return (
+    <div className={styles.order}>
+      {cart}
+      <hr />
+      {totalSum} $
+    </div>
+  );
 };
 
 const mapStateToProps = ({ order }) => ({
