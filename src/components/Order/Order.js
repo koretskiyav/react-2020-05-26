@@ -5,22 +5,33 @@ import { connect } from 'react-redux';
 import { decrement, deleteProduct, increment } from '../../redux/actions';
 
 const Order = (props) => {
-  const { menu, order, increment, decrement, deleteProduct } = props;
+  const { restaurants, order, increment, decrement, deleteProduct } = props;
 
-  const orderMenu = useMemo(
-    () =>
-      menu.filter((item) => {
-        return order[item.id] > 0;
-      }),
-    [order, menu]
-  );
+  // можно ли создавать нечистую функцию, внутри чистого компонента (getOrderMenu)?
+  // вообще смущают такие вычисления внутри компонента, наверняка можно сделать все лучше.
+  let orderMenu = [];
+  const getOrderMenu = useMemo(
+    () => () => {
+      Object.values(restaurants)
+        .map((item) => item.menu)
+        .map((item) =>
+          item.forEach((item) => {
+            if (order[item.id] > 0) {
+              orderMenu.push(item);
+            }
+          })
+        );
+    },
+    [restaurants, order, orderMenu]
+  )();
 
   const totalPrice = useMemo(
     () =>
       orderMenu.reduce((acc, item) => {
         return (acc += item.price * order[item.id]);
+        // ide подчеркивает acc, ругается что присвоенное значение никогда не используется, где ошибка?
       }, 0),
-    [orderMenu]
+    [orderMenu, order]
   );
 
   return (
@@ -33,23 +44,27 @@ const Order = (props) => {
             <button onClick={() => increment(product.id)}>+</button>
             <span>Amount: {order[product.id]}</span>
           </div>
-          <div>Price: {order[product.id] * product.price}</div>
+          <div>Price: {order[product.id] * product.price}$</div>
           <button onClick={() => deleteProduct(product.id)}>X</button>
         </div>
       ))}
       {orderMenu.length > 0 && (
-        <div className={styles.totalPrice}>Total Price: {totalPrice}</div>
+        <div className={styles.totalPrice}>Total Price: {totalPrice}$</div>
       )}
     </div>
   );
 };
 
 Order.propTypes = {
-  menu: PropTypes.arrayOf(
+  restaurants: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
+      menu: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.string.isRequired,
+          name: PropTypes.string.isRequired,
+          price: PropTypes.number.isRequired,
+        }).isRequired
+      ).isRequired,
     }).isRequired
   ).isRequired,
   order: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
