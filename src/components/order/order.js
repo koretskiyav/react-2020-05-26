@@ -26,6 +26,7 @@ function Order({ increment, decrement, remove, orders }) {
         <tbody>
           {Object.values(orders)
             .filter((order) => order)
+            .filter((order) => order.amount > 0)
             .map((order) => (
               <tr key={order.id}>
                 <td>{order.name}</td>
@@ -49,6 +50,7 @@ function Order({ increment, decrement, remove, orders }) {
         Total prise :{' '}
         {Object.values(orders)
           .filter((order) => order)
+          .filter((order) => order.amount > 0)
           .reduce((a, v) => a + v.price * v.amount, 0)}
       </h1>
     </div>
