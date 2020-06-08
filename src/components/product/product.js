@@ -12,7 +12,6 @@ const Product = ({ product, amount, increment, decrement, fetchData }) => {
     fetchData && fetchData(product.id);
     //eslint-disable-next-line
   }, []);
-
   return (
     <div className={styles.product} data-id="product">
       <div className={styles.content}>
@@ -29,14 +28,18 @@ const Product = ({ product, amount, increment, decrement, fetchData }) => {
             <div className={styles.buttons}>
               <button
                 className={styles.button}
-                onClick={() => decrement(product.id)}
+                onClick={() =>
+                  decrement(product.id, product.name, product.price)
+                }
                 data-id="product-decrement"
               >
                 <img src={MinusIcon} alt="minus" />
               </button>
               <button
                 className={styles.button}
-                onClick={() => increment(product.id)}
+                onClick={() =>
+                  increment(product.id, product.name, product.price)
+                }
                 data-id="product-increment"
               >
                 <img src={PlusIcon} alt="plus" />

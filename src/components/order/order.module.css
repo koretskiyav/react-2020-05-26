@@ -1,0 +1,16 @@
+.order {
+  position: fixed;
+  width: 400px;
+  height: 100px;
+  right: 0;
+  top: 0;
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid red;
+  background: #fff;
+  z-index: 999;
+}
+.product {
+  display: flex;
+  justify-content: space-around;
+}
