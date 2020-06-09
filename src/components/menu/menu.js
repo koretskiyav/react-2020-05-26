@@ -8,9 +8,7 @@ import Basket from '../basket';
 
 class Menu extends React.Component {
   static propTypes = {
-    menu: PropTypes.arrayOf(
-      PropTypes.shape({ id: PropTypes.string.isRequired }).isRequired
-    ).isRequired,
+    menu: PropTypes.array.isRequired,
   };
 
   state = {
@@ -42,9 +40,5 @@ class Menu extends React.Component {
     );
   }
 }
-
-// Menu.propTypes = {
-//   menu: PropTypes.array.isRequired,
-// };
 
 export default Menu;

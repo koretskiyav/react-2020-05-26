@@ -4,6 +4,12 @@ import { createSelector } from 'reselect';
 const orderSelector = (state) => state.order;
 const productsSelector = (state) => state.products;
 
+export const restorauntReviews = ({ reviews }, { reviewId }) => {
+  return reviewId.map((key) => {
+    return reviews[key];
+  });
+};
+
 export const orderProductsSelector = createSelector(
   productsSelector,
   orderSelector,

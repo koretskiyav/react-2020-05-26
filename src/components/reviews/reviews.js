@@ -1,8 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReviewForm from './review-form';
 import Review from './review';
 import styles from './reviews.module.css';
+
+import { restorauntReviews } from '../../redux/selectors';
 
 const Reviews = ({ reviews }) => {
   return (
@@ -16,11 +19,11 @@ const Reviews = ({ reviews }) => {
 };
 
 Reviews.propTypes = {
-  reviews: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-    }).isRequired
-  ).isRequired,
+  reviews: PropTypes.array.isRequired,
 };
 
-export default Reviews;
+const mapStateToProps = (state, ownProps) => ({
+  reviews: restorauntReviews(state, ownProps),
+});
+
+export default connect(mapStateToProps)(Reviews);
