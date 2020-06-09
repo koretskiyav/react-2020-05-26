@@ -6,9 +6,8 @@ import store from '../../redux/store';
 
 const Order = ({ orders }) => {
   const totalSum = useMemo(() => {
-    const storeOrders = store.getState()['order'] || {};
-    return Object.keys(storeOrders || {}).reduce(
-      (acc, id) => acc + storeOrders[id].count * storeOrders[id].price,
+    return Object.keys(orders || {}).reduce(
+      (acc, id) => acc + orders[id].count * orders[id].price,
       0
     );
   }, [orders]);
