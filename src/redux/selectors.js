@@ -27,3 +27,10 @@ export const totalSelector = createSelector(
 
 export const amountSelector = (state, ownProps) =>
   state.order[ownProps.id] || 0;
+
+export const textSelector = (state, ownProps) =>
+  state.reviews[ownProps.id].text;
+export const ratingSelector = (state, ownProps) =>
+  state.reviews[ownProps.id].rating;
+export const userSelector = (state, ownProps) =>
+  state.users[state.reviews[ownProps.id].userId].name;
