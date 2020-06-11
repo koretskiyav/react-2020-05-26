@@ -7,7 +7,7 @@ import Tabs from '../tabs';
 const Restaurants = ({ restaurants }) => {
   const tabs = restaurants.map((restaurant) => ({
     title: restaurant.name,
-    content: <Restaurant restaurant={restaurant} />,
+    content: <Restaurant id={restaurant.id} />,
   }));
 
   return <Tabs tabs={tabs} />;
@@ -21,6 +21,8 @@ Restaurants.propTypes = {
   ).isRequired,
 };
 
-export default connect((state) => ({
-  restaurants: state.restaurants,
-}))(Restaurants);
+const mapStateToProps = (state) => ({
+  restaurants: Object.values(state.restaurants),
+});
+
+export default connect(mapStateToProps)(Restaurants);
