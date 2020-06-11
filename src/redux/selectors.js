@@ -27,3 +27,14 @@ export const totalSelector = createSelector(
 
 export const amountSelector = (state, ownProps) =>
   state.order[ownProps.id] || 0;
+
+export const averageRatingSelector = (state, ownProps) => {
+  const reviewsId = state.restaurants[ownProps.id].reviews;
+
+  return Math.round(
+    reviewsId.reduce(
+      (acc, reviewId) => state.reviews[reviewId].rating + acc,
+      0
+    ) / reviewsId.length
+  );
+};
