@@ -1,26 +1,36 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReviewForm from './review-form';
 import Review from './review';
 import styles from './reviews.module.css';
 
-const Reviews = ({ reviews }) => {
+import { restorauntReviews } from '../../redux/selectors';
+
+const Reviews = ({ reviews, users, restId }) => {
   return (
     <div className={styles.reviews}>
       {reviews.map((review) => (
-        <Review key={review.id} {...review} />
+        <Review key={review.id} user={users[review.userId].name} {...review} />
       ))}
-      <ReviewForm />
+      <ReviewForm restId={restId} />
     </div>
   );
 };
 
 Reviews.propTypes = {
-  reviews: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-    }).isRequired
-  ).isRequired,
+  reviews: PropTypes.array.isRequired,
+  users: PropTypes.object.isRequired,
 };
 
-export default Reviews;
+Review.defaultProps = {
+  reviews: [],
+  users: [],
+};
+
+const mapStateToProps = (state, ownProps) => ({
+  reviews: restorauntReviews(state, ownProps),
+  users: state.users,
+});
+
+export default connect(mapStateToProps)(Reviews);
