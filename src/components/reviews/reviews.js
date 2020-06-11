@@ -4,23 +4,19 @@ import ReviewForm from './review-form';
 import Review from './review';
 import styles from './reviews.module.css';
 
-const Reviews = ({ reviews }) => {
+const Reviews = ({ reviews, activeRestaurant }) => {
   return (
     <div className={styles.reviews}>
-      {reviews.map((review) => (
-        <Review key={review.id} {...review} />
+      {reviews.map((id) => (
+        <Review key={id} id={id} />
       ))}
-      <ReviewForm />
+      <ReviewForm activeRestaurant={activeRestaurant} />
     </div>
   );
 };
 
 Reviews.propTypes = {
-  reviews: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-    }).isRequired
-  ).isRequired,
+  reviews: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
 
 export default Reviews;
