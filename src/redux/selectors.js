@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-// const restaurantsSelector = (state) => state.restaurants;
+export const restaurantsSelector = (state) => state.restaurants;
 const orderSelector = (state) => state.order;
 const productsSelector = (state) => state.products;
 
@@ -55,3 +55,4 @@ export const averageRatingSelector = createSelector(
     return Math.round(total / reviews.length);
   }
 );
+// неудобно хранить все селекторы в одном месте, почему мы не пишем в том же файле что и редьюсер?
