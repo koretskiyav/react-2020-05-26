@@ -13,7 +13,6 @@ export default (reviews = defaultReviews, action) => {
     case ADD_REVIEW:
       return {
         ...reviews,
-        console: console.log('Reviews payload: ', payload),
         [payload.values.reviewUuid]: {
           id: payload.values.reviewUuid,
           rating: payload.values.rate,
