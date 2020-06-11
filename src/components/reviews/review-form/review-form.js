@@ -5,15 +5,21 @@ import Rate from '../../rate';
 import styles from './review-form.module.css';
 import { connect } from 'react-redux';
 import Button from '../../button';
+import {submit} from '../../../redux/actions';
 
-const ReviewForm = ({ onSubmit }) => {
+const ReviewForm = ({ submit, activeRestaurant }) => {
   const rate = useInput(5);
   const name = useInput('');
   const text = useInput('');
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    onSubmit({ name: name.value, text: text.value, rate: rate.value });
+    submit({
+      name: name.value,
+      text: text.value,
+      rate: rate.value,
+      activeRestaurant: activeRestaurant
+    });
   };
 
   return (
@@ -46,6 +52,8 @@ const ReviewForm = ({ onSubmit }) => {
   );
 };
 
-export default connect(null, () => ({
-  onSubmit: (values) => console.log(values), // TODO
-}))(ReviewForm);
+const mapDispatchToProps = ({
+  submit
+});
+
+export default connect(null, mapDispatchToProps)(ReviewForm);
