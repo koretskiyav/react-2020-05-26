@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
+// import { restaurants } from '../fixtures';
 
-// const restaurantsSelector = (state) => state.restaurants;
+const restaurantsSelector = (state) => state.restaurants;
 const orderSelector = (state) => state.order;
 const productsSelector = (state) => state.products;
 
@@ -17,6 +18,11 @@ export const orderProductsSelector = createSelector(
         subtotal: order[product.id] * product.price,
       }));
   }
+);
+
+export const allRestaurantsSelector = createSelector(
+  restaurantsSelector,
+  (restaurants) => Object.values(restaurants)
 );
 
 export const totalSelector = createSelector(
