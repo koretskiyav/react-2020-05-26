@@ -1,9 +1,9 @@
 import { normalizedRestaurants } from '../../fixtures';
 
-const defaultRestaurants = normalizedRestaurants;
-//     .reduce((acc, restaurant) => {
-//   return {...acc, [restaurant.id]: restaurant}
-// }, {});
+const defaultRestaurants = normalizedRestaurants.reduce((acc, restaurant) => {
+  return { ...acc, [restaurant.id]: restaurant };
+}, {});
+
 export default (restaurants = defaultRestaurants, action) => {
   const { type } = action;
 
