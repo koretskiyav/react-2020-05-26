@@ -6,8 +6,6 @@ const defaultReviews = normalizedReviews.reduce(
   {}
 );
 
-console.log('defaultReviews: ', defaultReviews);
-
 export default (reviews = defaultReviews, action) => {
   const { type, payload } = action;
 

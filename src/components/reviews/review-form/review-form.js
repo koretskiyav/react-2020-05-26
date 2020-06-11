@@ -7,14 +7,19 @@ import { connect } from 'react-redux';
 import Button from '../../button';
 import { addReview } from '../../../redux/actions';
 
-const ReviewForm = ({ addReview }) => {
+const ReviewForm = ({ addReview, restaurantId }) => {
   const rate = useInput(5);
   const name = useInput('');
   const text = useInput('');
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    addReview({ name: name.value, text: text.value, rate: rate.value });
+    addReview({
+      name: name.value,
+      text: text.value,
+      rate: rate.value,
+      restaurantId: restaurantId,
+    });
   };
 
   return (

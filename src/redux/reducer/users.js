@@ -6,11 +6,8 @@ const defaultUsers = normalizedUsers.reduce(
   {}
 );
 
-console.log('defaultUsers: ', defaultUsers);
-
 export default (users = defaultUsers, action) => {
   const { type, payload } = action;
-  console.log('users payload: ', payload);
 
   switch (type) {
     case ADD_USER:

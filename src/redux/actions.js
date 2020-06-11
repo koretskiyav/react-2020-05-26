@@ -4,6 +4,7 @@ import {
   REMOVE,
   ADD_REVIEW,
   ADD_USER,
+  ADD_REVIEW_TO_RESTAURANT,
 } from './constants';
 
 export const increment = (id) => ({ type: INCREMENT, payload: { id } });
@@ -16,4 +17,8 @@ export const addReview = (values) => ({
 export const addUser = (name, uuid) => ({
   type: ADD_USER,
   payload: { name, uuid },
+});
+export const addReviewToRestaurant = (uuid, restaurantId) => ({
+  type: ADD_REVIEW_TO_RESTAURANT,
+  payload: { uuid, restaurantId },
 });
