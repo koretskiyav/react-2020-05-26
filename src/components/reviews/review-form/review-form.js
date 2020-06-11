@@ -1,6 +1,8 @@
 import React from 'react';
 import useInput from '../../../hooks/use-input';
 
+import { v4 as uuidv4 } from 'uuid';
+
 import Rate from '../../rate';
 import styles from './review-form.module.css';
 import { connect } from 'react-redux';

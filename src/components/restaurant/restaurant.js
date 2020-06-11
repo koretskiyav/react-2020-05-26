@@ -21,7 +21,7 @@ const Restaurant = ({ restaurant }) => {
 
   return (
     <div>
-      <Banner heading={name}>
+      <Banner heading={restaurant.name}>
         <Rate value={averageRating} />
       </Banner>
       <Tabs tabs={tabs} />
