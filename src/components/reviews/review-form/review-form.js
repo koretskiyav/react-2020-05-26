@@ -6,14 +6,26 @@ import styles from './review-form.module.css';
 import { connect } from 'react-redux';
 import Button from '../../button';
 
-const ReviewForm = ({ onSubmit }) => {
+import { addNewReview } from '../../../redux/actions';
+
+const ReviewForm = ({ addNewReview, restId }) => {
+  const id = '';
   const rate = useInput(5);
   const name = useInput('');
   const text = useInput('');
+  const userId = '';
+  const restaurauntId = restId;
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    onSubmit({ name: name.value, text: text.value, rate: rate.value });
+    addNewReview({
+      id,
+      name: name.value,
+      text: text.value,
+      rating: rate.value,
+      userId,
+      restaurauntId,
+    });
   };
 
   return (
@@ -46,6 +58,8 @@ const ReviewForm = ({ onSubmit }) => {
   );
 };
 
-export default connect(null, () => ({
-  onSubmit: (values) => console.log(values), // TODO
-}))(ReviewForm);
+const mapDispatchToProps = (dispatch) => ({
+  addNewReview: (values) => dispatch(addNewReview(values)),
+});
+
+export default connect(null, mapDispatchToProps)(ReviewForm);

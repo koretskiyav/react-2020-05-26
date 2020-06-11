@@ -7,7 +7,7 @@ import Rate from '../rate';
 import Tabs from '../tabs';
 
 const Restaurant = ({ restaurant }) => {
-  const { name, menu, reviews } = restaurant;
+  const { name, menu, reviews, id } = restaurant;
 
   const averageRating = useMemo(() => {
     const total = reviews.reduce((acc, { rating }) => acc + rating, 0);
@@ -16,7 +16,7 @@ const Restaurant = ({ restaurant }) => {
 
   const tabs = [
     { title: 'Menu', content: <Menu menu={menu} /> },
-    { title: 'Reviews', content: <Reviews reviewId={reviews} /> },
+    { title: 'Reviews', content: <Reviews reviewId={reviews} restId={id} /> },
   ];
 
   return (

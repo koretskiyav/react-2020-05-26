@@ -1,6 +1,12 @@
+import { v4 as uuidv4 } from 'uuid';
+
+import {} from '../constants';
+
 export default (store) => (next) => (action) => {
-  // console.log('before :', store.getState());
-  // console.log('action :', action);
+  if (action.type === 'ADD_NEW_REVIEW') {
+    const newPayload = { ...action.payload, id: uuidv4(), userId: uuidv4() };
+    action.payload = { ...newPayload };
+  }
+
   next(action);
-  // console.log('after :', store.getState());
 };
