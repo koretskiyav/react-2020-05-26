@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Product from '../product';
 
 import styles from './menu.module.css';
+import Basket from '../basket';
 
 class Menu extends React.Component {
   static propTypes = {
@@ -30,9 +31,12 @@ class Menu extends React.Component {
     return (
       <div className={styles.menu}>
         <div>
-          {menu.map((product) => (
-            <Product key={product.id} product={product} />
+          {menu.map((id) => (
+            <Product key={id} id={id} />
           ))}
+        </div>
+        <div>
+          <Basket />
         </div>
       </div>
     );
