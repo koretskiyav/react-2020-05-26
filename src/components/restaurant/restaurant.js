@@ -1,22 +1,27 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Menu from '../menu';
 import Reviews from '../reviews';
 import Banner from '../banner';
 import Rate from '../rate';
 import Tabs from '../tabs';
+import { connect } from 'react-redux';
+import {
+  averageRatingSelector,
+  menuSelector,
+  nameSelector,
+  reviewsSelector,
+} from '../../redux/selectors';
 
-const Restaurant = ({ restaurant }) => {
-  const { name, menu, reviews } = restaurant;
-
-  const averageRating = useMemo(() => {
-    const total = reviews.reduce((acc, { rating }) => acc + rating, 0);
-    return Math.round(total / reviews.length);
-  }, [reviews]);
+const Restaurant = ({ id, name, menu, reviews, averageRating }) => {
+  // там где я достаю id из props только в селекторах, IDE ругается на неиспользуемую переменную... Забить на это?
 
   const tabs = [
     { title: 'Menu', content: <Menu menu={menu} /> },
-    { title: 'Reviews', content: <Reviews reviews={reviews} /> },
+    {
+      title: 'Reviews',
+      content: <Reviews reviews={reviews} restaurantId={id} />,
+    },
   ];
 
   return (
@@ -30,15 +35,15 @@ const Restaurant = ({ restaurant }) => {
 };
 
 Restaurant.propTypes = {
-  restaurant: PropTypes.shape({
-    name: PropTypes.string,
-    menu: PropTypes.array,
-    reviews: PropTypes.arrayOf(
-      PropTypes.shape({
-        rating: PropTypes.number.isRequired,
-      }).isRequired
-    ).isRequired,
-  }).isRequired,
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  menu: PropTypes.arrayOf(PropTypes.string).isRequired,
+  reviews: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default Restaurant;
+export default connect((state, ownProps) => ({
+  name: nameSelector(state, ownProps),
+  menu: menuSelector(state, ownProps),
+  reviews: reviewsSelector(state, ownProps),
+  averageRating: averageRatingSelector(state, ownProps),
+}))(Restaurant);
