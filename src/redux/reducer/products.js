@@ -1,4 +1,3 @@
-import produce from 'immer';
 import { LOAD_PRODUCTS, SUCCESS, REQUEST, FAILURE } from '../constants';
 
 import { arrToMap } from '../utils';
@@ -12,7 +11,7 @@ const initialState = {
 
 // { [productId]: product }
 export default (state = initialState, action) => {
-  const { type, payload, response, error } = action;
+  const { type, response, error } = action;
 
   switch (type) {
     case LOAD_PRODUCTS + REQUEST:

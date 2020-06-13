@@ -17,7 +17,7 @@ import Loader from '../loader';
 
 const Product = ({
   id,
-  product,
+  product = {},
   amount = 0,
   increment,
   decrement,
@@ -29,7 +29,7 @@ const Product = ({
     if (!loading && !loaded) loadProducts();
     //eslint-disable-next-line
   }, []);
-  if (loading || !loaded) return <Loader />;
+  if (loading || !loaded || !product) return <Loader />;
   return (
     <div className={styles.product} data-id="product">
       <div className={styles.content}>
