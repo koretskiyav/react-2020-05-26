@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import styles from './product.module.css';
 import { increment, decrement } from '../../redux/actions';
 
+import Loader from '../loader';
 import Button from '../button';
 import { productAmountSelector, productSelector } from '../../redux/selectors';
 
@@ -13,6 +14,8 @@ const Product = ({ product, amount = 0, increment, decrement, fetchData }) => {
     fetchData && fetchData(product.id);
     //eslint-disable-next-line
   }, []);
+
+  if (!product) return <Loader />;
 
   return (
     <div className={styles.product} data-id="product">
@@ -51,7 +54,7 @@ Product.propTypes = {
     name: PropTypes.string,
     price: PropTypes.number,
     ingredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  }).isRequired,
+  }),
   amount: PropTypes.number,
   decrement: PropTypes.func,
   increment: PropTypes.func,
