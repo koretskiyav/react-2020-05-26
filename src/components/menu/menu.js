@@ -1,50 +1,50 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-
+import { connect } from 'react-redux';
 import Product from '../product';
 
 import styles from './menu.module.css';
 import Basket from '../basket';
+import Loader from '../loader';
 
-class Menu extends React.Component {
-  static propTypes = {
-    menu: PropTypes.arrayOf(
-      PropTypes.shape({ id: PropTypes.string.isRequired }).isRequired
-    ).isRequired,
-  };
+import { loadProducts } from '../../redux/actions';
+import {
+  productsLoadingSelector,
+  productsLoadedSelector,
+} from '../../redux/selectors';
 
-  state = {
-    error: null,
-  };
+function Menu({ menu, restaurantId, loadProducts, loading, loaded }) {
+  useEffect(() => {
+    loadProducts(restaurantId);
+  }, [restaurantId]); // eslint-disable-line
 
-  componentDidCatch(error) {
-    this.setState({ error });
-  }
+  if (loading || !loaded) return <Loader />;
 
-  render() {
-    const { menu } = this.props;
-
-    if (this.state.error) {
-      return <h1>{this.state.error.message}</h1>;
-    }
-
-    return (
-      <div className={styles.menu}>
-        <div>
-          {menu.map((id) => (
-            <Product key={id} id={id} />
-          ))}
-        </div>
-        <div>
-          <Basket />
-        </div>
+  return (
+    <div className={styles.menu}>
+      <div>
+        {menu.map((id) => (
+          <Product key={id} id={id} />
+        ))}
       </div>
-    );
-  }
+      <div>
+        <Basket />
+      </div>
+    </div>
+  );
 }
 
 Menu.propTypes = {
   menu: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  restaurantId: PropTypes.string.isRequired,
+  loadProducts: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  loaded: PropTypes.bool.isRequired,
 };
 
-export default Menu;
+const mapStateToProps = (state) => ({
+  loading: productsLoadingSelector(state),
+  loaded: productsLoadedSelector(state),
+});
+
+export default connect(mapStateToProps, { loadProducts })(Menu);
