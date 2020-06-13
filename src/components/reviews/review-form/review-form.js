@@ -1,19 +1,22 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import useInput from '../../../hooks/use-input';
 
 import Rate from '../../rate';
 import styles from './review-form.module.css';
 import { connect } from 'react-redux';
 import Button from '../../button';
+import { addReview } from '../../../redux/actions';
 
 const ReviewForm = ({ onSubmit }) => {
-  const rate = useInput(5);
+  const rating = useInput(5);
   const name = useInput('');
   const text = useInput('');
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    onSubmit({ name: name.value, text: text.value, rate: rate.value });
+    onSubmit({ name: name.value, text: text.value, rating: rating.value });
   };
 
   return (
@@ -33,7 +36,7 @@ const ReviewForm = ({ onSubmit }) => {
         <div className={styles.rateWrap}>
           <span>Rating: </span>
           <span>
-            <Rate {...rate} />
+            <Rate {...rating} />
           </span>
         </div>
         <div className={styles.publish}>
@@ -46,6 +49,11 @@ const ReviewForm = ({ onSubmit }) => {
   );
 };
 
-export default connect(null, () => ({
-  onSubmit: (values) => console.log(values), // TODO
+ReviewForm.propTypes = {
+  restaurantId: PropTypes.string,
+  onSubmit: PropTypes.func.isRequired,
+};
+
+export default connect(null, (dispatch, props) => ({
+  onSubmit: (review) => dispatch(addReview(review, props.restaurantId)),
 }))(ReviewForm);

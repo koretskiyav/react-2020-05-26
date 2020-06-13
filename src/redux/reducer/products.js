@@ -1,16 +1,12 @@
 import { normalizedProducts } from '../../fixtures';
-
-const defaultProducts = normalizedProducts.reduce(
-  (acc, product) => ({ ...acc, [product.id]: product }),
-  {}
-);
+import { arrToMap } from '../utils';
 
 // { [productId]: product }
-export default (products = defaultProducts, action) => {
+export default (state = arrToMap(normalizedProducts), action) => {
   const { type } = action;
 
   switch (type) {
     default:
-      return products;
+      return state;
   }
 };

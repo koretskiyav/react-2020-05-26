@@ -1,8 +1,37 @@
 import { createSelector } from 'reselect';
+import { getAverage, getById, mapToArray } from './utils';
 
-// const restaurantsSelector = (state) => state.restaurants;
+const restaurantsSelector = (state) => state.restaurants.entities;
 const orderSelector = (state) => state.order;
 const productsSelector = (state) => state.products;
+const reviewsSelector = (state) => state.reviews;
+const usersSelector = (state) => state.users;
+
+export const restaurantsLoadingSelector = (state) => state.restaurants.loading;
+export const restaurantsLoadedSelector = (state) => state.restaurants.loaded;
+
+export const restaurantsListSelector = mapToArray(restaurantsSelector);
+export const productAmountSelector = getById(orderSelector);
+export const productSelector = getById(productsSelector);
+const reviewSelector = getById(reviewsSelector);
+
+export const reviewWitUserSelector = createSelector(
+  reviewSelector,
+  usersSelector,
+  (review, users) => ({
+    ...review,
+    user: users[review.userId]?.name,
+  })
+);
+
+export const averageRatingSelector = createSelector(
+  reviewsSelector,
+  (_, { reviews }) => reviews,
+  (reviews, ids) => {
+    const ratings = ids.map((id) => reviews[id].rating);
+    return Math.floor(getAverage(ratings) * 2) / 2;
+  }
+);
 
 export const orderProductsSelector = createSelector(
   productsSelector,
@@ -24,6 +53,3 @@ export const totalSelector = createSelector(
   (orderProducts) =>
     orderProducts.reduce((acc, { subtotal }) => acc + subtotal, 0)
 );
-
-export const amountSelector = (state, ownProps) =>
-  state.order[ownProps.id] || 0;
