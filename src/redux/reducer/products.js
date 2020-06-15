@@ -23,7 +23,7 @@ export default (state = initialState, action) => {
     case LOAD_PRODUCTS + SUCCESS:
       return {
         ...state,
-        products: arrToMap(response),
+        products: Object.assign(state.products, arrToMap(response)),
         loading: false,
         loaded: true,
       };

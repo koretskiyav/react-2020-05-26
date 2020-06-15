@@ -4,23 +4,15 @@ import PropTypes from 'prop-types';
 import Rate from '../../rate';
 import styles from './review.module.css';
 import { connect } from 'react-redux';
-import {
-  reviewsLoadedSelector,
-  reviewsLoadingSelector,
-  reviewWitUserSelector,
-} from '../../../redux/selectors';
+import { reviewWitUserSelector } from '../../../redux/selectors';
 import Loader from '../../loader';
 
-const Review = ({
-  review: { user = 'Anonymous', text, rating },
-  loadingReviews,
-  loadedReviews,
-}) => {
+const Review = ({ review: { user = 'Anonymous', text, rating } }) => {
   return (
     <div className={styles.review} data-id="review">
       <div className={styles.content}>
         <div>
-          {loadingReviews || !loadedReviews ? (
+          {!user ? (
             <Loader />
           ) : (
             <h4 className={styles.name} data-id="review-user">
@@ -49,6 +41,4 @@ Review.propTypes = {
 
 export default connect((state, props) => ({
   review: reviewWitUserSelector(state, props),
-  loadingReviews: reviewsLoadingSelector(state),
-  loadedReviews: reviewsLoadedSelector(state),
 }))(Review);

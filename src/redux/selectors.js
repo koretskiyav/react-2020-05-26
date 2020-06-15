@@ -26,7 +26,7 @@ export const reviewWitUserSelector = createSelector(
   usersSelector,
   (review, users) => ({
     ...review,
-    user: !review ? 'Anonymous' : users[review.userId]?.name,
+    user: !review ? null : users[review.userId]?.name,
   })
 );
 

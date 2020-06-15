@@ -22,6 +22,8 @@ class Menu extends React.Component {
 
   state = {
     error: null,
+    arrRestaurantId: new Set(),
+    // в редьюсере данные не меняются, а добавляются, здесь в локальном стейте накапливаются значения переданных restaurantId, если такое значение есть в массиве, то данные заново загружаться не будут. А теперь с удовольствием посмотрю как это делают на самом деле :)
   };
 
   componentDidCatch(error) {
@@ -30,12 +32,21 @@ class Menu extends React.Component {
 
   componentDidMount() {
     const { loadProducts, restaurantId } = this.props;
+    this.setState(() => ({
+      arrRestaurantId: this.state.arrRestaurantId.add(restaurantId),
+    }));
     loadProducts(restaurantId);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     const { loadProducts, restaurantId } = this.props;
+    if (this.state.arrRestaurantId.has(restaurantId)) {
+      return null;
+    }
     if (prevProps.restaurantId !== restaurantId) {
+      this.setState(() => ({
+        arrRestaurantId: this.state.arrRestaurantId.add(restaurantId),
+      }));
       loadProducts(restaurantId);
     }
   }
