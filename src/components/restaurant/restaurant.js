@@ -26,7 +26,7 @@ const Restaurant = ({
 }) => {
   useEffect(() => {
     loadReviews(id);
-  }, [id]);
+  }, [id]); //eslint-disable-line
 
   const tabs = [
     { title: 'Menu', content: <Menu menu={menu} restaurantId={id} /> },
