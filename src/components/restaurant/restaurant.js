@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Menu from '../menu';
 import Reviews from '../reviews';
@@ -12,6 +12,7 @@ import {
   reviewsLoadingSelector,
 } from '../../redux/selectors';
 import Loader from '../loader';
+import { loadReviews } from '../../redux/actions';
 
 const Restaurant = ({
   id,
@@ -19,9 +20,14 @@ const Restaurant = ({
   menu,
   reviews,
   averageRating,
+  loadReviews,
   loadingReviews,
   loadedReviews,
 }) => {
+  useEffect(() => {
+    loadReviews(id);
+  }, [id]);
+
   const tabs = [
     { title: 'Menu', content: <Menu menu={menu} restaurantId={id} /> },
     {
@@ -32,7 +38,13 @@ const Restaurant = ({
 
   return (
     <div>
-      <Banner heading={name}>{/*<Rate value={averageRating} />*/}</Banner>
+      <Banner heading={name}>
+        {loadingReviews || !loadedReviews ? (
+          <Loader />
+        ) : (
+          <Rate value={averageRating} />
+        )}
+      </Banner>
       <Tabs tabs={tabs} />
     </div>
   );
@@ -46,8 +58,13 @@ Restaurant.propTypes = {
   averageRating: PropTypes.number,
 };
 
-export default connect((state, props) => ({
-  loadingReviews: reviewsLoadingSelector(state),
-  loadedReviews: reviewsLoadedSelector(state),
-  // averageRating: averageRatingSelector(state, props),
-}))(Restaurant);
+export default connect(
+  (state, props) => ({
+    loadingReviews: reviewsLoadingSelector(state),
+    loadedReviews: reviewsLoadedSelector(state),
+    averageRating: averageRatingSelector(state, props),
+  }),
+  {
+    loadReviews,
+  }
+)(Restaurant);
