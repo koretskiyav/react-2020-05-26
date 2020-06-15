@@ -28,10 +28,10 @@ export const loadRestaurants = () => ({
 export const loadReviews = (restaurantId) => async (dispatch) => {
   dispatch({ type: LOAD_REVIEWS + REQUEST, restaurantId });
   try {
-    const response = await fetch(
+    const reviewsFetch = await fetch(
       `/api/reviews?id=${restaurantId}`
     ).then((res) => res.json());
-    dispatch({ type: LOAD_REVIEWS + SUCCESS, response, restaurantId });
+    dispatch({ type: LOAD_REVIEWS + SUCCESS, reviewsFetch, restaurantId });
   } catch (error) {
     dispatch({ type: LOAD_REVIEWS + FAILURE, error, restaurantId });
   }

@@ -9,6 +9,8 @@ const usersSelector = (state) => state.users;
 
 export const restaurantsLoadingSelector = (state) => state.restaurants.loading;
 export const restaurantsLoadedSelector = (state) => state.restaurants.loaded;
+// export const reviewsLoadingSelector = (state) => state.reviews.loading;
+// export const reviewsLoadedSelector = (state) => state.reviews.loaded;
 
 export const restaurantsListSelector = mapToArray(restaurantsSelector);
 export const productAmountSelector = getById(orderSelector);
