@@ -5,6 +5,8 @@ import Product from '../product';
 
 import styles from './menu.module.css';
 import Basket from '../basket';
+import { connect } from 'react-redux';
+import { loadProducts } from '../../redux/actions';
 
 class Menu extends React.Component {
   static propTypes = {
@@ -19,6 +21,18 @@ class Menu extends React.Component {
 
   componentDidCatch(error) {
     this.setState({ error });
+  }
+
+  componentDidMount() {
+    const { loadProducts, restaurantId } = this.props;
+    loadProducts(restaurantId);
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const { loadProducts, restaurantId } = this.props;
+    if (prevProps.restaurantId !== restaurantId) {
+      loadProducts(restaurantId);
+    }
   }
 
   render() {
@@ -47,4 +61,4 @@ Menu.propTypes = {
   menu: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
 
-export default Menu;
+export default connect(null, { loadProducts })(Menu);
