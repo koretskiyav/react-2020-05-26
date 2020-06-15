@@ -6,9 +6,9 @@ import styles from './product.module.css';
 import { increment, decrement } from '../../redux/actions';
 
 import Button from '../button';
-import { amountSelector } from '../../redux/selectors';
+import { productAmountSelector, productSelector } from '../../redux/selectors';
 
-const Product = ({ product, amount, increment, decrement, fetchData }) => {
+const Product = ({ product, amount = 0, increment, decrement, fetchData }) => {
   useEffect(() => {
     fetchData && fetchData(product.id);
     //eslint-disable-next-line
@@ -58,24 +58,14 @@ Product.propTypes = {
   fetchData: PropTypes.func,
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  amount: amountSelector(state, ownProps),
-  product: state.products[ownProps.id],
+const mapStateToProps = (state, props) => ({
+  amount: productAmountSelector(state, props),
+  product: productSelector(state, props),
 });
 
 const mapDispatchToProps = {
   increment,
   decrement,
 };
-
-// const mapDispatchToProps = {
-//   onIncrement: increment,
-//   onDecrement: decrement,
-// };
-
-// const mapDispatchToProps = (dispatch) => ({
-//   onIncrement: () => dispatch(increment()),
-//   onDecrement: () => dispatch(decrement()),
-// });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Product);
