@@ -43,7 +43,7 @@ export default (state = initialState, action) => {
       const { name } = payload.review;
       return {
         ...state,
-        [userId]: { id: userId, name },
+        users: { ...state.users, [userId]: { id: userId, name } },
       };
 
     default:

@@ -36,7 +36,7 @@ export default produce((draft = initialState, action) => {
       break;
     case ADD_REVIEW:
       const { text, rating } = payload.review;
-      draft[reviewId] = { id: reviewId, userId, text, rating };
+      draft.reviews[reviewId] = { id: reviewId, userId, text, rating };
       break;
     // case ADD_REVIEW:
     //   const { text, rating } = payload.review;

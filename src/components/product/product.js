@@ -28,6 +28,8 @@ const Product = ({
     //eslint-disable-next-line
   }, []);
 
+  if (!product) return <Loader />;
+
   return (
     <div className={styles.product} data-id="product">
       <div className={styles.content}>
