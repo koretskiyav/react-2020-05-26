@@ -3,9 +3,9 @@ import { getAverage, getById, mapToArray } from './utils';
 
 const restaurantsSelector = (state) => state.restaurants.entities;
 const orderSelector = (state) => state.order;
-const productsSelector = (state) => state.products;
-const reviewsSelector = (state) => state.reviews;
-const usersSelector = (state) => state.users;
+const productsSelector = (state) => state.products.products;
+const reviewsSelector = (state) => state.reviews.reviews;
+const usersSelector = (state) => state.users.users;
 
 export const restaurantsLoadingSelector = (state) => state.restaurants.loading;
 export const restaurantsLoadedSelector = (state) => state.restaurants.loaded;
@@ -13,6 +13,8 @@ export const reviewsLoadingSelector = (state) => state.reviews.loading;
 export const reviewsLoadedSelector = (state) => state.reviews.loaded;
 export const usersLoadingSelector = (state) => state.users.loading;
 export const usersLoadedSelector = (state) => state.users.loaded;
+export const productsLoadingSelector = (state) => state.products.loading;
+export const productsLoadedSelector = (state) => state.products.loaded;
 
 export const restaurantsListSelector = mapToArray(restaurantsSelector);
 export const productAmountSelector = getById(orderSelector);

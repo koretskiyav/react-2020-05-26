@@ -5,7 +5,7 @@ import {
   REQUEST,
   SUCCESS,
 } from '../constants';
-import { normalizedUsers } from '../../fixtures';
+// import { normalizedUsers } from '../../fixtures';
 import { arrToMap } from '../utils';
 
 const initialState = {
@@ -15,7 +15,7 @@ const initialState = {
   error: null,
 };
 
-export default (state = arrToMap(normalizedUsers), action) => {
+export default (state = initialState, action) => {
   const { type, payload, userId, usersFetch, error } = action;
 
   switch (type) {

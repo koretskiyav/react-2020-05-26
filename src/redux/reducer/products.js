@@ -1,4 +1,4 @@
-import { normalizedProducts } from '../../fixtures';
+// import { normalizedProducts } from '../../fixtures';
 import { arrToMap } from '../utils';
 import { FAILURE, LOAD_PRODUCTS, REQUEST, SUCCESS } from '../constants';
 
@@ -10,7 +10,7 @@ const initialState = {
 };
 
 // { [productId]: product }
-export default (state = arrToMap(normalizedProducts), action) => {
+export default (state = initialState, action) => {
   const { type, response, error } = action;
 
   switch (type) {
