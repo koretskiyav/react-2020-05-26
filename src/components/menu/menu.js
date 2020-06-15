@@ -1,10 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Product from '../product';
 
 import styles from './menu.module.css';
 import Basket from '../basket';
+import { loadProducts } from '../../redux/actions';
+import Loader from '../loader';
 
 class Menu extends React.Component {
   static propTypes = {
@@ -21,7 +24,12 @@ class Menu extends React.Component {
     this.setState({ error });
   }
 
+  componentDidMount() {
+    this.props.loadProducts();
+  }
+
   render() {
+    const { loading, loaded } = this.props.menuFetch;
     const { menu } = this.props;
 
     if (this.state.error) {
@@ -31,9 +39,8 @@ class Menu extends React.Component {
     return (
       <div className={styles.menu}>
         <div>
-          {menu.map((id) => (
-            <Product key={id} id={id} />
-          ))}
+          {loading && <Loader />}
+          {loaded && menu.map((id) => <Product key={id} id={id} />)}
         </div>
         <div>
           <Basket />
@@ -45,6 +52,11 @@ class Menu extends React.Component {
 
 Menu.propTypes = {
   menu: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  menuFetch: PropTypes.object.isRequired,
 };
 
-export default Menu;
+const mapStateToProps = (store) => ({
+  menuFetch: store.products,
+});
+
+export default connect(mapStateToProps, { loadProducts })(Menu);
