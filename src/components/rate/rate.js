@@ -15,4 +15,8 @@ Rate.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
+Rate.defaultProps = {
+  onChange: () => null,
+};
+
 export default Rate;
