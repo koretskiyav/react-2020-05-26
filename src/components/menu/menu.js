@@ -50,9 +50,9 @@ import {loadProducts} from "../../redux/actions";
 
 const Menu = ({ menu, restaurantId, loadProducts, loading, loaded}) => {
 
-  useEffect((restaurantId) => {
+  useEffect(() => {
     loadProducts(restaurantId);
-  }, [restaurantId]);
+  }, [restaurantId]); //eslint-disable-line
 
   if(loading || !loaded) return <Loader/>;
 
