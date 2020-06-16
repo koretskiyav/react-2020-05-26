@@ -7,6 +7,9 @@ const productsSelector = (state) => state.products.products;
 const reviewsSelector = (state) => state.reviews.reviews;
 const usersSelector = (state) => state.users.users;
 
+export const arrRestaurantIdSelector = (state) =>
+  state.products.arrRestaurantId;
+
 export const restaurantsLoadingSelector = (state) => state.restaurants.loading;
 export const restaurantsLoadedSelector = (state) => state.restaurants.loaded;
 export const reviewsLoadingSelector = (state) => state.reviews.loading;

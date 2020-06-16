@@ -8,6 +8,7 @@ import Basket from '../basket';
 import { connect } from 'react-redux';
 import { loadProducts } from '../../redux/actions';
 import {
+  arrRestaurantIdSelector,
   productsLoadedSelector,
   productsLoadingSelector,
 } from '../../redux/selectors';
@@ -22,8 +23,6 @@ class Menu extends React.Component {
 
   state = {
     error: null,
-    arrRestaurantId: new Set(),
-    // в редьюсере данные не меняются, а добавляются, здесь в локальном стейте накапливаются значения переданных restaurantId, если такое значение есть в массиве, то данные заново загружаться не будут. А теперь с удовольствием посмотрю как это делают на самом деле :)
   };
 
   componentDidCatch(error) {
@@ -31,22 +30,19 @@ class Menu extends React.Component {
   }
 
   componentDidMount() {
-    const { loadProducts, restaurantId } = this.props;
-    this.setState(() => ({
-      arrRestaurantId: this.state.arrRestaurantId.add(restaurantId),
-    }));
+    const { loadProducts, restaurantId, arrRestaurantId } = this.props;
+    if (arrRestaurantId.includes(restaurantId)) {
+      return null;
+    }
     loadProducts(restaurantId);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    const { loadProducts, restaurantId } = this.props;
-    if (this.state.arrRestaurantId.has(restaurantId)) {
+    const { loadProducts, restaurantId, arrRestaurantId } = this.props;
+    if (arrRestaurantId.includes(restaurantId)) {
       return null;
     }
     if (prevProps.restaurantId !== restaurantId) {
-      this.setState(() => ({
-        arrRestaurantId: this.state.arrRestaurantId.add(restaurantId),
-      }));
       loadProducts(restaurantId);
     }
   }
@@ -85,6 +81,7 @@ export default connect(
   (state) => ({
     productsLoading: productsLoadingSelector(state),
     productsLoaded: productsLoadedSelector(state),
+    arrRestaurantId: arrRestaurantIdSelector(state),
   }),
   { loadProducts }
 )(Menu);

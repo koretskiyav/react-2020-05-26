@@ -7,11 +7,12 @@ const initialState = {
   loading: false,
   loaded: false,
   error: null,
+  arrRestaurantId: [],
 };
 
 // { [productId]: product }
 export default (state = initialState, action) => {
-  const { type, response, error } = action;
+  const { type, response, error, payload } = action;
 
   switch (type) {
     case LOAD_PRODUCTS + REQUEST:
@@ -24,6 +25,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         products: Object.assign(state.products, arrToMap(response)),
+        arrRestaurantId: [...state.arrRestaurantId, payload.restaurantId],
         loading: false,
         loaded: true,
       };
