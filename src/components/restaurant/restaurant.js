@@ -10,7 +10,7 @@ import { averageRatingSelector } from '../../redux/selectors';
 
 const Restaurant = ({ id, name, menu, reviews, averageRating }) => {
   const tabs = [
-    { title: 'Menu', content: <Menu menu={menu} /> },
+    { title: 'Menu', content: <Menu menu={menu} restaurantId={id} /> },
     {
       title: 'Reviews',
       content: <Reviews reviews={reviews} restaurantId={id} />,
@@ -20,7 +20,7 @@ const Restaurant = ({ id, name, menu, reviews, averageRating }) => {
   return (
     <div>
       <Banner heading={name}>
-        <Rate value={averageRating} />
+        {!!averageRating && <Rate value={averageRating} />}
       </Banner>
       <Tabs tabs={tabs} />
     </div>
