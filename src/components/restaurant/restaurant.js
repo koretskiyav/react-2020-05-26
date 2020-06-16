@@ -4,25 +4,48 @@ import Menu from '../menu';
 import Reviews from '../reviews';
 import Banner from '../banner';
 import Rate from '../rate';
-import Tabs from '../tabs';
 import { connect } from 'react-redux';
 import { averageRatingSelector } from '../../redux/selectors';
+import { NavLink, Switch, Route } from 'react-router-dom';
+import styles from './restaurant.module.css';
 
 const Restaurant = ({ id, name, menu, reviews, averageRating }) => {
-  const tabs = [
-    { title: 'Menu', content: <Menu menu={menu} restaurantId={id} /> },
-    {
-      title: 'Reviews',
-      content: <Reviews reviews={reviews} restaurantId={id} />,
-    },
-  ];
-
   return (
     <div>
       <Banner heading={name}>
         {!!averageRating && <Rate value={averageRating} />}
       </Banner>
-      <Tabs tabs={tabs} />
+      <div className={styles.tabs}>
+        <NavLink
+          className={styles.tab}
+          activeClassName={styles.active}
+          to={`/restaurants/${id}/menu`}
+        >
+          menu
+        </NavLink>
+        <NavLink
+          className={styles.tab}
+          activeClassName={styles.active}
+          to={`/restaurants/${id}/reviews`}
+        >
+          reviews
+        </NavLink>
+        {/* нормальная ли практика использовать свич в таком месте? */}
+        <Switch>
+          <Route
+            path="/restaurants/:restaurantId/reviews"
+            render={() => (
+              <Reviews reviews={reviews} restaurantId={id}>
+                404 - not found
+              </Reviews>
+            )}
+          />
+          <Route
+            path="/restaurants/:restaurantId/menu"
+            render={() => <Menu menu={menu} restaurantId={id} />}
+          />
+        </Switch>
+      </div>
     </div>
   );
 };
