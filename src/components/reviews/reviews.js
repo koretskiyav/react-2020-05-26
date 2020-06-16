@@ -5,8 +5,9 @@ import ReviewForm from './review-form';
 import Review from './review';
 import styles from './reviews.module.css';
 
-import { loadUsers } from '../../redux/actions';
+import { loadReviews, loadUsers } from '../../redux/actions';
 import {
+  arrRestaurantIdReviewsSelector,
   usersLoadedSelector,
   usersLoadingSelector,
 } from '../../redux/selectors';
@@ -17,8 +18,11 @@ const Reviews = ({
   loadUsers,
   loadingUsers,
   loadedUsers,
+  loadReviews,
+  arrRestaurantId,
 }) => {
   useEffect(() => {
+    if (!arrRestaurantId.includes(restaurantId)) loadReviews(restaurantId);
     if (!loadingUsers && !loadedUsers) loadUsers();
   }, [restaurantId]); //eslint-disable-line
 
@@ -41,8 +45,10 @@ export default connect(
   (state) => ({
     loadingUsers: usersLoadingSelector(state),
     loadedUsers: usersLoadedSelector(state),
+    arrRestaurantId: arrRestaurantIdReviewsSelector(state),
   }),
   {
+    loadReviews,
     loadUsers,
   }
 )(Reviews);

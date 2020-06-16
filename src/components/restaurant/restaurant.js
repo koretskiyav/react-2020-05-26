@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Menu from '../menu';
 import Reviews from '../reviews';
@@ -12,8 +12,6 @@ import {
   reviewsLoadedSelector,
   reviewsLoadingSelector,
 } from '../../redux/selectors';
-import Loader from '../loader';
-import { loadReviews } from '../../redux/actions';
 
 const Restaurant = ({
   id,
@@ -21,15 +19,8 @@ const Restaurant = ({
   menu,
   reviews,
   averageRating,
-  loadReviews,
-  loadingReviews,
-  loadedReviews,
   arrRestaurantId,
 }) => {
-  useEffect(() => {
-    if (!arrRestaurantId.includes(id)) loadReviews(id);
-  }, [id]); //eslint-disable-line
-
   const tabs = [
     { title: 'Menu', content: <Menu menu={menu} restaurantId={id} /> },
     {
@@ -41,11 +32,7 @@ const Restaurant = ({
   return (
     <div>
       <Banner heading={name}>
-        {loadingReviews || !loadedReviews ? (
-          <Loader />
-        ) : (
-          <Rate value={averageRating} />
-        )}
+        {!arrRestaurantId.includes(id) ? null : <Rate value={averageRating} />}
       </Banner>
       <Tabs tabs={tabs} />
     </div>
@@ -60,14 +47,9 @@ Restaurant.propTypes = {
   averageRating: PropTypes.number,
 };
 
-export default connect(
-  (state, props) => ({
-    loadingReviews: reviewsLoadingSelector(state),
-    loadedReviews: reviewsLoadedSelector(state),
-    averageRating: averageRatingSelector(state, props),
-    arrRestaurantId: arrRestaurantIdReviewsSelector(state),
-  }),
-  {
-    loadReviews,
-  }
-)(Restaurant);
+export default connect((state, props) => ({
+  loadingReviews: reviewsLoadingSelector(state),
+  loadedReviews: reviewsLoadedSelector(state),
+  averageRating: averageRatingSelector(state, props),
+  arrRestaurantId: arrRestaurantIdReviewsSelector(state),
+}))(Restaurant);
