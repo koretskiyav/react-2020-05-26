@@ -14,10 +14,19 @@ const initialState = {
   loading: false,
   loaded: false,
   error: null,
+  arrRestaurantId: [],
 };
 
 export default produce((draft = initialState, action) => {
-  const { type, payload, reviewId, userId, reviewsFetch, error } = action;
+  const {
+    type,
+    payload,
+    reviewId,
+    userId,
+    reviewsFetch,
+    error,
+    restaurantId,
+  } = action;
 
   switch (type) {
     case LOAD_REVIEWS + REQUEST:
@@ -25,7 +34,8 @@ export default produce((draft = initialState, action) => {
       draft.error = null;
       break;
     case LOAD_REVIEWS + SUCCESS:
-      draft.reviews = arrToMap(reviewsFetch);
+      draft.reviews = Object.assign(draft.reviews, arrToMap(reviewsFetch));
+      draft.arrRestaurantId = [...draft.arrRestaurantId, restaurantId];
       draft.loading = false;
       draft.loaded = true;
       break;

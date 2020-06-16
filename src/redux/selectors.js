@@ -7,8 +7,10 @@ const productsSelector = (state) => state.products.products;
 const reviewsSelector = (state) => state.reviews.reviews;
 const usersSelector = (state) => state.users.users;
 
-export const arrRestaurantIdSelector = (state) =>
+export const arrRestaurantIdProductsSelector = (state) =>
   state.products.arrRestaurantId;
+export const arrRestaurantIdReviewsSelector = (state) =>
+  state.reviews.arrRestaurantId;
 
 export const restaurantsLoadingSelector = (state) => state.restaurants.loading;
 export const restaurantsLoadedSelector = (state) => state.restaurants.loaded;

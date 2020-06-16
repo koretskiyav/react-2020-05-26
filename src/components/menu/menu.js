@@ -8,7 +8,7 @@ import Basket from '../basket';
 import { connect } from 'react-redux';
 import { loadProducts } from '../../redux/actions';
 import {
-  arrRestaurantIdSelector,
+  arrRestaurantIdProductsSelector,
   productsLoadedSelector,
   productsLoadingSelector,
 } from '../../redux/selectors';
@@ -81,7 +81,7 @@ export default connect(
   (state) => ({
     productsLoading: productsLoadingSelector(state),
     productsLoaded: productsLoadedSelector(state),
-    arrRestaurantId: arrRestaurantIdSelector(state),
+    arrRestaurantId: arrRestaurantIdProductsSelector(state),
   }),
   { loadProducts }
 )(Menu);

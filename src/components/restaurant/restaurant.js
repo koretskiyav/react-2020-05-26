@@ -7,6 +7,7 @@ import Rate from '../rate';
 import Tabs from '../tabs';
 import { connect } from 'react-redux';
 import {
+  arrRestaurantIdReviewsSelector,
   averageRatingSelector,
   reviewsLoadedSelector,
   reviewsLoadingSelector,
@@ -23,9 +24,10 @@ const Restaurant = ({
   loadReviews,
   loadingReviews,
   loadedReviews,
+  arrRestaurantId,
 }) => {
   useEffect(() => {
-    loadReviews(id);
+    if (!arrRestaurantId.includes(id)) loadReviews(id);
   }, [id]); //eslint-disable-line
 
   const tabs = [
@@ -63,6 +65,7 @@ export default connect(
     loadingReviews: reviewsLoadingSelector(state),
     loadedReviews: reviewsLoadedSelector(state),
     averageRating: averageRatingSelector(state, props),
+    arrRestaurantId: arrRestaurantIdReviewsSelector(state),
   }),
   {
     loadReviews,
