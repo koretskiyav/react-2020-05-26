@@ -3,10 +3,12 @@ import {
   DECREMENT,
   REMOVE,
   ADD_REVIEW,
-  LOAD_RESTAURANTS,
   REQUEST,
   SUCCESS,
   FAILURE,
+  LOAD_RESTAURANTS,
+  LOAD_USERS,
+  LOAD_PRODUCTS,
   LOAD_REVIEWS,
 } from './constants';
 
@@ -25,14 +27,30 @@ export const loadRestaurants = () => ({
   CallAPI: '/api/restaurants',
 });
 
+export const loadProducts = (restaurantId) => ({
+  type: LOAD_PRODUCTS,
+  CallAPI: `api/products?id=${restaurantId}`,
+  payload: { restaurantId },
+});
+
 export const loadReviews = (restaurantId) => async (dispatch) => {
   dispatch({ type: LOAD_REVIEWS + REQUEST, restaurantId });
   try {
-    const response = await fetch(
+    const reviewsFetch = await fetch(
       `/api/reviews?id=${restaurantId}`
     ).then((res) => res.json());
-    dispatch({ type: LOAD_REVIEWS + SUCCESS, response, restaurantId });
+    dispatch({ type: LOAD_REVIEWS + SUCCESS, reviewsFetch, restaurantId });
   } catch (error) {
     dispatch({ type: LOAD_REVIEWS + FAILURE, error, restaurantId });
+  }
+};
+
+export const loadUsers = () => async (dispatch) => {
+  dispatch({ type: LOAD_USERS + REQUEST });
+  try {
+    const usersFetch = await fetch('/api/users').then((res) => res.json());
+    dispatch({ type: LOAD_USERS + SUCCESS, usersFetch });
+  } catch (error) {
+    dispatch({ type: LOAD_USERS + FAILURE, error });
   }
 };

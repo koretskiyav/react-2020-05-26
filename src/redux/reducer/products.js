@@ -1,11 +1,41 @@
-import { normalizedProducts } from '../../fixtures';
+// import { normalizedProducts } from '../../fixtures';
 import { arrToMap } from '../utils';
+import { FAILURE, LOAD_PRODUCTS, REQUEST, SUCCESS } from '../constants';
+
+const initialState = {
+  products: {},
+  loading: false,
+  loaded: false,
+  error: null,
+  arrRestaurantId: [],
+};
 
 // { [productId]: product }
-export default (state = arrToMap(normalizedProducts), action) => {
-  const { type } = action;
+export default (state = initialState, action) => {
+  const { type, response, error, payload } = action;
 
   switch (type) {
+    case LOAD_PRODUCTS + REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case LOAD_PRODUCTS + SUCCESS:
+      return {
+        ...state,
+        products: Object.assign(state.products, arrToMap(response)),
+        arrRestaurantId: [...state.arrRestaurantId, payload.restaurantId],
+        loading: false,
+        loaded: true,
+      };
+    case LOAD_PRODUCTS + FAILURE:
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+        error,
+      };
     default:
       return state;
   }

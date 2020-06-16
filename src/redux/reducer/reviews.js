@@ -1,15 +1,52 @@
 import produce from 'immer';
-import { ADD_REVIEW } from '../constants';
-import { normalizedReviews } from '../../fixtures';
+import {
+  ADD_REVIEW,
+  FAILURE,
+  LOAD_REVIEWS,
+  REQUEST,
+  SUCCESS,
+} from '../constants';
+// import { normalizedReviews } from '../../fixtures';
 import { arrToMap } from '../utils';
 
-export default produce((draft = arrToMap(normalizedReviews), action) => {
-  const { type, payload, reviewId, userId } = action;
+const initialState = {
+  reviews: {},
+  loading: false,
+  loaded: false,
+  error: null,
+  arrRestaurantId: [],
+};
+
+export default produce((draft = initialState, action) => {
+  const {
+    type,
+    payload,
+    reviewId,
+    userId,
+    reviewsFetch,
+    error,
+    restaurantId,
+  } = action;
 
   switch (type) {
+    case LOAD_REVIEWS + REQUEST:
+      draft.loading = true;
+      draft.error = null;
+      break;
+    case LOAD_REVIEWS + SUCCESS:
+      draft.reviews = Object.assign(draft.reviews, arrToMap(reviewsFetch));
+      draft.arrRestaurantId = [...draft.arrRestaurantId, restaurantId];
+      draft.loading = false;
+      draft.loaded = true;
+      break;
+    case LOAD_REVIEWS + FAILURE:
+      draft.loading = false;
+      draft.loaded = false;
+      draft.error = error;
+      break;
     case ADD_REVIEW:
       const { text, rating } = payload.review;
-      draft[reviewId] = { id: reviewId, userId, text, rating };
+      draft.reviews[reviewId] = { id: reviewId, userId, text, rating };
       break;
     // case ADD_REVIEW:
     //   const { text, rating } = payload.review;
