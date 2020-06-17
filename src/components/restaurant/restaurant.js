@@ -7,23 +7,37 @@ import Rate from '../rate';
 import Tabs from '../tabs';
 import { connect } from 'react-redux';
 import { averageRatingSelector } from '../../redux/selectors';
+import { Switch, Route, Link } from 'react-router-dom';
 
 const Restaurant = ({ id, name, menu, reviews, averageRating }) => {
   const tabs = [
-    { title: 'Menu', content: <Menu menu={menu} restaurantId={id} /> },
+    {
+      title: 'Menu',
+      linkTo: `/restaurants/${id}/menu`,
+    },
     {
       title: 'Reviews',
-      content: <Reviews reviews={reviews} restaurantId={id} />,
+      linkTo: `/restaurants/${id}/reviews`,
     },
   ];
 
   return (
-    <div>
-      <Banner heading={name}>
-        {!!averageRating && <Rate value={averageRating} />}
-      </Banner>
-      <Tabs tabs={tabs} />
-    </div>
+    <>
+      <div>
+        <Banner heading={name}>
+          {!!averageRating && <Rate value={averageRating} />}
+        </Banner>
+        <Tabs tabs={tabs} />
+      </div>
+      <Route
+        path={`/restaurants/${id}/menu`}
+        component={() => <Menu menu={menu} restaurantId={id} />}
+      />
+      <Route
+        path={`/restaurants/${id}/reviews`}
+        component={() => <Reviews reviews={reviews} restaurantId={id} />}
+      />
+    </>
   );
 };
 
