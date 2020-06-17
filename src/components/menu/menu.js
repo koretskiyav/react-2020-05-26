@@ -1,6 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { loadProducts } from '../../redux/actions';
+import {
+  productsLoadingSelector,
+  productsLoadedSelector,
+} from '../../redux/selectors';
 
+import Loader from '../loader';
 import Product from '../product';
 
 import styles from './menu.module.css';
@@ -17,12 +24,33 @@ class Menu extends React.Component {
     error: null,
   };
 
+  loadProductsIfNeeded = () => {
+    const { loadProducts, restaurantId, loading, loaded } = this.props;
+    if (!loading && !loaded) {
+      loadProducts(restaurantId);
+    }
+  };
+
+  componentDidMount() {
+    this.loadProductsIfNeeded();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.restaurantId !== this.props.restaurantId) {
+      this.loadProductsIfNeeded();
+    }
+  }
+
   componentDidCatch(error) {
     this.setState({ error });
   }
 
   render() {
-    const { menu } = this.props;
+    const { menu, loading } = this.props;
+
+    if (loading) {
+      return <Loader />;
+    }
 
     if (this.state.error) {
       return <h1>{this.state.error.message}</h1>;
@@ -47,4 +75,10 @@ Menu.propTypes = {
   menu: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
 
-export default Menu;
+export default connect(
+  (state, props) => ({
+    loading: productsLoadingSelector(state, props),
+    loaded: productsLoadedSelector(state, props),
+  }),
+  { loadProducts }
+)(Menu);
