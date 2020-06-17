@@ -67,3 +67,19 @@ export const totalSelector = createSelector(
   (orderProducts) =>
     orderProducts.reduce((acc, { subtotal }) => acc + subtotal, 0)
 );
+
+export const getRestByProductIdSelector = (state, props) => {
+  const { id: productId } = props.product;
+  let restId = '';
+  return createSelector(mapToArray(restaurantsSelector), (rests) => {
+    rests.map(({ menu, id }) => {
+      if (menu.includes(productId)) {
+        restId = id;
+      }
+    });
+    return { restId };
+  });
+  /* меня очень смущает этот селектор.и то как бы луче вытащить
+   айдишник нужного реста по айдишнику продукта и нужна ли здесь мемоизация
+   селекторы для меня новый инструмент, так что интересно как это должно быть */
+};

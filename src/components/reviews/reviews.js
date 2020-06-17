@@ -16,11 +16,11 @@ import Loader from '../loader';
 
 const Reviews = ({
   reviews,
-  restaurantId,
   loadReviews,
   loadUsers,
   usersLoaded,
   reviewsLoaded,
+  restaurantId,
 }) => {
   useEffect(() => {
     loadUsers();
@@ -40,7 +40,7 @@ const Reviews = ({
 };
 
 Reviews.propTypes = {
-  restaurantId: PropTypes.string.isRequired,
+  match: PropTypes.object.isRequired,
   reviews: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
 
