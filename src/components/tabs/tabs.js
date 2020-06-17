@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink, Route } from 'react-router-dom';
-
 import styles from './tabs.module.css';
 
 const Tabs = ({ tabs }) => {
-  console.log('tabs', tabs);
-
   return (
     <>
       <div className={styles.tabs}>
