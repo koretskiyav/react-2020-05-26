@@ -1,11 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { restIdSelector } from '../../../redux/selectors';
 import { connect } from 'react-redux';
 import cn from 'classnames';
 import { increment, decrement, remove } from '../../../redux/actions';
 import Button from '../../button';
 import styles from './basket-item.module.css';
-import { Link } from 'react-router-dom';
-import { restIdSelector } from '../../../redux/selectors';
 
 function BasketItem({
   product,
