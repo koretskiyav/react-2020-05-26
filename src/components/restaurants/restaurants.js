@@ -22,7 +22,7 @@ const Restaurants = ({ restaurants, match, history }) => {
             key={id}
             className={styles.tab}
             activeClassName={styles.active}
-            to={`/restaurants/${id}`}
+            to={`/restaurants/${id}/menu`}
           >
             {name}
           </NavLink>

@@ -1,28 +1,26 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import cn from 'classnames';
+import { NavLink, Route } from 'react-router-dom';
 
 import styles from './tabs.module.css';
 
 const Tabs = ({ tabs }) => {
-  const [activeTab, setActiveTab] = useState(0);
-
-  const { content } = tabs[activeTab];
+  console.log('tabs', tabs);
 
   return (
     <>
       <div className={styles.tabs}>
-        {tabs.map(({ title }, index) => (
-          <span
+        {tabs.map(({ title, linkTo }) => (
+          <NavLink
+            to={linkTo}
             key={title}
-            className={cn(styles.tab, { [styles.active]: index === activeTab })}
-            onClick={() => setActiveTab(index)}
+            className={styles.tab}
+            activeClassName={styles.active}
           >
             {title}
-          </span>
+          </NavLink>
         ))}
       </div>
-      {content}
     </>
   );
 };
@@ -31,7 +29,6 @@ Tabs.propTypes = {
   tabs: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
-      content: PropTypes.element.isRequired,
     }).isRequired
   ).isRequired,
 };
