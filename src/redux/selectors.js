@@ -1,5 +1,7 @@
 import { createSelector } from 'reselect';
 import { getAverage, getById, mapToArray } from './utils';
+import restaurants from '../components/restaurants';
+import restaurant from '../components/restaurant';
 
 const restaurantsSelector = (state) => state.restaurants.entities;
 const productsSelector = (state) => state.products.entities;
@@ -48,9 +50,10 @@ export const averageRatingSelector = createSelector(
 );
 
 export const orderProductsSelector = createSelector(
+  restaurantsListSelector,
   productsSelector,
   orderSelector,
-  (products, order) => {
+  (restaurants, products, order) => {
     return Object.keys(order)
       .filter((productId) => order[productId] > 0)
       .map((productId) => products[productId])
@@ -58,6 +61,9 @@ export const orderProductsSelector = createSelector(
         product,
         amount: order[product.id],
         subtotal: order[product.id] * product.price,
+        restaurantId: restaurants.find((restaurant) =>
+          restaurant.menu.includes(product.id)
+        )?.id,
       }));
   }
 );
