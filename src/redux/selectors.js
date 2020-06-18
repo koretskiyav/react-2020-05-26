@@ -48,13 +48,17 @@ export const averageRatingSelector = createSelector(
 );
 
 export const orderProductsSelector = createSelector(
+  restaurantsSelector,
   productsSelector,
   orderSelector,
-  (products, order) => {
+  (restaurants, products, order) => {
     return Object.keys(order)
       .filter((productId) => order[productId] > 0)
       .map((productId) => products[productId])
       .map((product) => ({
+        restaurantId: Object.values(restaurants).find(
+          ({ id, menu }) => menu.includes(product.id) && id
+        )?.id,
         product,
         amount: order[product.id],
         subtotal: order[product.id] * product.price,
