@@ -6,7 +6,6 @@ import cn from 'classnames';
 import { increment, decrement, remove } from '../../../redux/actions';
 import Button from '../../button';
 import styles from './basket-item.module.css';
-import restaurant from '../../restaurant';
 
 function BasketItem({
   product,

@@ -1,7 +1,5 @@
 import { createSelector } from 'reselect';
 import { getAverage, getById, mapToArray } from './utils';
-import restaurants from '../components/restaurants';
-import restaurant from '../components/restaurant';
 
 const restaurantsSelector = (state) => state.restaurants.entities;
 const productsSelector = (state) => state.products.entities;

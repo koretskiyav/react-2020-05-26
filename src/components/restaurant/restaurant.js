@@ -1,28 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { NavLink, Route } from 'react-router-dom';
 import Menu from '../menu';
 import Reviews from '../reviews';
 import Banner from '../banner';
 import Rate from '../rate';
-import Tabs from '../tabs';
 import { connect } from 'react-redux';
 import { averageRatingSelector } from '../../redux/selectors';
 
-const Restaurant = ({ id, name, menu, reviews, averageRating }) => {
-  const tabs = [
-    { title: 'Menu', content: <Menu menu={menu} restaurantId={id} /> },
-    {
-      title: 'Reviews',
-      content: <Reviews reviews={reviews} restaurantId={id} />,
-    },
-  ];
+import style from '../restaurants/restaurants.module.css';
 
+const Restaurant = ({ id, name, menu, reviews, averageRating }) => {
   return (
     <div>
       <Banner heading={name}>
         {!!averageRating && <Rate value={averageRating} />}
       </Banner>
-      <Tabs tabs={tabs} />
+      <div className={style.tabs}>
+        <NavLink
+          className={style.tab}
+          to={`/restaurants/${id}/menu`}
+          activeClassName={style.active}
+        >
+          Menu
+        </NavLink>
+        <NavLink
+          className={style.tab}
+          to={`/restaurants/${id}/review`}
+          activeClassName={style.active}
+        >
+          Reviews
+        </NavLink>
+      </div>
+      <Route
+        path={`/restaurants/${id}/menu`}
+        render={() => <Menu menu={menu} restaurantId={id} />}
+      />
+      <Route
+        path={`/restaurants/${id}/review`}
+        render={() => <Reviews reviews={reviews} restaurantId={id} />}
+      />
     </div>
   );
 };
