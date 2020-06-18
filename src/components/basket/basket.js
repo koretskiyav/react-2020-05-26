@@ -20,8 +20,9 @@ function Basket({ title = 'Basket', total, orderProducts }) {
   return (
     <div className={styles.basket}>
       <h4 className={styles.title}>{title}</h4>
-      {orderProducts.map(({ product, amount, subtotal }) => (
+      {orderProducts.map(({ restaurantID, product, amount, subtotal }) => (
         <BasketItem
+          restaurantID={restaurantID}
           product={product}
           amount={amount}
           key={product.id}
