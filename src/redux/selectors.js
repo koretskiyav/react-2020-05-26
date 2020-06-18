@@ -67,3 +67,16 @@ export const totalSelector = createSelector(
   (orderProducts) =>
     orderProducts.reduce((acc, { subtotal }) => acc + subtotal, 0)
 );
+
+export const restaurantIdFromProductSelector = createSelector(
+  restaurantsSelector,
+  (_, { product }) => product.id,
+  (restaurants, productId) => {
+    return Object.values(restaurants).find((rest) => {
+      if (rest.menu.includes(productId)) {
+        return rest;
+      }
+      return null;
+    }).id;
+  }
+);

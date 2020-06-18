@@ -17,7 +17,6 @@ function RestaurantsPage({
   loading,
   loaded,
   match,
-  history,
 }) {
   useEffect(() => {
     if (!loading && !loaded) loadRestaurants();
@@ -31,13 +30,13 @@ function RestaurantsPage({
         <h2>Select restaurant:</h2>
         {restaurants.map(({ id, name }) => (
           <p key={id}>
-            <Link to={`/restaurants/${id}`}>{name}</Link>
+            <Link to={`/restaurants/${id}/menu`}>{name}</Link>
           </p>
         ))}
       </div>
     );
   }
-  return <Route path="/restaurants/:restId" component={Restaurants} />;
+  return <Route path="/restaurants/:restId/:tab" component={Restaurants} />;
 }
 
 export default connect(

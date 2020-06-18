@@ -10,7 +10,7 @@ import { restaurantsListSelector } from '../../redux/selectors';
 import styles from './restaurants.module.css';
 
 const Restaurants = ({ restaurants, match, history }) => {
-  const { restId } = match.params;
+  const { restId, tab } = match.params;
 
   const restaurant = restaurants.find((rest) => rest.id === restId);
 
@@ -22,13 +22,13 @@ const Restaurants = ({ restaurants, match, history }) => {
             key={id}
             className={styles.tab}
             activeClassName={styles.active}
-            to={`/restaurants/${id}`}
+            to={`/restaurants/${id}/${tab}`}
           >
             {name}
           </NavLink>
         ))}
       </div>
-      <Restaurant {...restaurant} />,
+      <Restaurant {...restaurant} />
     </>
   );
 };
