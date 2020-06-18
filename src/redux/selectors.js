@@ -73,7 +73,10 @@ export const restaurantIdFromProductSelector = createSelector(
   (_, { product }) => product.id,
   (restaurants, productId) => {
     return Object.values(restaurants).find((rest) => {
-      if (rest.menu.includes(productId)) return rest;
+      if (rest.menu.includes(productId)) {
+        return rest;
+      }
+      return null;
     }).id;
   }
 );
