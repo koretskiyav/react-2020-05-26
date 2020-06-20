@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import RestaurantsPage from '../pages/restaurants-page';
 import Header from '../header';
 import Basket from '../basket';
@@ -17,6 +17,7 @@ const App = () => {
       <UserProvider value={{ userName, setName }}>
         <Header />
         <Switch>
+          <Redirect exact from={'/'} to={'/restaurants'} />
           <Route path="/checkout" component={Basket} />
           <Route path="/restaurants" component={RestaurantsPage} />
           <Route path="/error" render={() => <h1>Error Page</h1>} />
