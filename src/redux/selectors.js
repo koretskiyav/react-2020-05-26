@@ -42,15 +42,16 @@ export const averageRatingSelector = createSelector(
   reviewsSelector,
   (_, { reviews }) => reviews,
   (reviews, ids) => {
-    const ratings = ids.map((id) => reviews[id]?.rating || 0);
-    return Math.floor(getAverage(ratings) * 2) / 2;
+    const ratings = ids?.map((id) => reviews[id]?.rating || 0);
+    return ratings ? Math.floor(getAverage(ratings) * 2) / 2 : 0;
   }
 );
 
 export const orderProductsSelector = createSelector(
+  restaurantsListSelector,
   productsSelector,
   orderSelector,
-  (products, order) => {
+  (restaurants, products, order) => {
     return Object.keys(order)
       .filter((productId) => order[productId] > 0)
       .map((productId) => products[productId])
@@ -58,6 +59,9 @@ export const orderProductsSelector = createSelector(
         product,
         amount: order[product.id],
         subtotal: order[product.id] * product.price,
+        restaurantId: restaurants.find((restaurant) =>
+          restaurant.menu.includes(product.id)
+        ).id,
       }));
   }
 );

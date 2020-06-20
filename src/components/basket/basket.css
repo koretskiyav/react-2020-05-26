@@ -1,0 +1,14 @@
+.basket-item-animation-enter {
+  opacity: 0;
+}
+.basket-item-animation-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+.basket-item-animation-exit {
+  opacity: 1;
+}
+.basket-item-animation-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+}

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Route, Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import Restaurants from '../restaurants';
 import Loader from '../loader';
 
@@ -27,16 +27,13 @@ function RestaurantsPage({
 
   if (match.isExact) {
     return (
-      <div>
-        <h2>Select restaurant:</h2>
-        {restaurants.map(({ id, name }) => (
-          <p key={id}>
-            <Link to={`/restaurants/${id}`}>{name}</Link>
-          </p>
-        ))}
-      </div>
+      <>
+        <Restaurants match={match} history={history} />
+        <h2 style={{ textAlign: 'center' }}>Select restaurant</h2>
+      </>
     );
   }
+
   return <Route path="/restaurants/:restId" component={Restaurants} />;
 }
 
