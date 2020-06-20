@@ -1,0 +1,11 @@
+.currency {
+  margin: 0 1rem;
+  color: var(--white);
+  font-size: 1.2rem;
+}
+
+.currency select {
+  margin-left: 1rem;
+  border-radius: 1rem;
+  padding: 1px 2px;
+}

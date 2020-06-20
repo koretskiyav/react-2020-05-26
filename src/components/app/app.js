@@ -18,6 +18,7 @@ const App = () => {
       return `${(price * 23265.5).toFixed(0)} ₫`;
     }
   };
+  // Наверное нужно перенести эту логику внутри файла контекста, а не пихать в App, но ругается...
 
   useEffect(() => {
     // setInterval(() => setName(Math.random().toString()), 3000);

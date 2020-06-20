@@ -1,7 +1,7 @@
 .header {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   height: 60px;
   background: var(--black);
   position: relative;
@@ -12,16 +12,4 @@
   color: var(--white);
   right: 20px;
   top: 0;
-}
-
-.currency {
-  margin: 0 1rem;
-  color: white;
-  font-size: 1.2rem;
-}
-
-.currency select {
-  margin-left: 1rem;
-  border-radius: 1rem;
-  padding: 1px 2px;
 }
