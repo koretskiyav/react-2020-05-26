@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -12,8 +12,11 @@ import Button from '../button';
 import { orderProductsSelector, totalSelector } from '../../redux/selectors';
 
 import { Consumer as UserConsumer } from '../../contexts/user';
+import CurrencyContext from '../../contexts/currency';
 
 function Basket({ title = 'Basket', total, orderProducts }) {
+  const { getPrice } = useContext(CurrencyContext);
+
   if (!total) {
     return (
       <div className={styles.basket}>
@@ -44,9 +47,9 @@ function Basket({ title = 'Basket', total, orderProducts }) {
         ))}
       </TransitionGroup>
       <hr className={styles.hr} />
-      <BasketRow label="Sub-total" content={`${total} $`} />
+      <BasketRow label="Sub-total" content={`${getPrice(total)}`} />
       <BasketRow label="Delivery costs:" content="FREE" />
-      <BasketRow label="total" content={`${total} $`} bold />
+      <BasketRow label="total" content={`${getPrice(total)}`} bold />
       <Link to="/checkout">
         <Button primary block>
           checkout

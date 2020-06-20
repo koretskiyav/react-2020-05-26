@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { connect } from 'react-redux';
 
 import PropTypes from 'prop-types';
@@ -7,8 +7,11 @@ import { increment, decrement } from '../../redux/actions';
 
 import Button from '../button';
 import { productAmountSelector, productSelector } from '../../redux/selectors';
+import CurrencyContext from '../../contexts/currency';
 
 const Product = ({ product, amount = 0, increment, decrement }) => {
+  const { getPrice } = useContext(CurrencyContext);
+
   if (!product) return null;
 
   return (
@@ -17,7 +20,8 @@ const Product = ({ product, amount = 0, increment, decrement }) => {
         <div>
           <h4 className={styles.title}>{product.name}</h4>
           <p className={styles.description}>{product.ingredients.join(', ')}</p>
-          <div className={styles.price}>{product.price} $</div>
+          {/*<div className={styles.price}>{product.price} $</div>*/}
+          <div className={styles.price}>{getPrice(product.price)}</div>
         </div>
         <div>
           <div className={styles.counter}>
