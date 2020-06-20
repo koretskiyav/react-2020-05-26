@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import RestaurantsPage from '../pages/restaurants-page';
 import Header from '../header';
@@ -7,18 +7,23 @@ import { Provider as UserProvider } from '../../contexts/user';
 import { Provider as CurrencyProvider } from '../../contexts/currency';
 
 const App = () => {
+  console.log('Render App');
   const [userName, setName] = useState('Ivan');
   const [currency, setCurrency] = useState('USD');
-  const getPrice = (price) => {
-    if (currency === 'USD') {
-      return `${price} $`;
-    } else if (currency === 'RUB') {
-      return `${(price * 69.42).toFixed(0)} ₽`;
-    } else if (currency === 'DONG') {
-      return `${(price * 23265.5).toFixed(0)} ₫`;
-    }
-  };
-  // Наверное нужно перенести эту логику внутри файла контекста, а не пихать в App, но ругается...
+  const getPrice = useMemo(
+    () => (price) => {
+      switch (currency) {
+        case 'USD':
+          return `${price} $`;
+        case 'RUB':
+          return `${(price * 69.42).toFixed(0)} ₽`;
+        case 'DONG':
+          return `${(price * 23265.5).toFixed(0)} ₫`;
+      }
+    },
+    [currency]
+  );
+  // Наверное нужно как-то вынести эту логику внутрь файла контекста, а не пихать в App, но ругается...
 
   useEffect(() => {
     // setInterval(() => setName(Math.random().toString()), 3000);
