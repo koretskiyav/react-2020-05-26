@@ -7,23 +7,26 @@ import { Provider as UserProvider } from '../../contexts/user';
 import { Provider as CurrencyProvider } from '../../contexts/currency';
 
 const App = () => {
-  console.log('Render App');
+  console.log('Render App'); // при выборе валюты перерендеривается все приложение полностью, такого точно быть не должно
+  // кроме того, дополнительный перерендер когда просто кликаешь на выбор валюты в первый раз
   const [userName, setName] = useState('Ivan');
   const [currency, setCurrency] = useState('USD');
   const getPrice = useMemo(
     () => (price) => {
       switch (currency) {
-        case 'USD':
-          return `${price} $`;
+        // case 'USD':
+        //   return `${price} $`;
         case 'RUB':
           return `${(price * 69.42).toFixed(0)} ₽`;
         case 'DONG':
           return `${(price * 23265.5).toFixed(0)} ₫`;
+        default:
+          return `${price} $`;
       }
     },
     [currency]
   );
-  // Наверное нужно как-то вынести эту логику внутрь файла контекста, а не пихать в App, но ругается...
+  // Как вынести эту логику из App, если использовать useState внутри файла с созданием контекста, то ругается...
 
   useEffect(() => {
     // setInterval(() => setName(Math.random().toString()), 3000);

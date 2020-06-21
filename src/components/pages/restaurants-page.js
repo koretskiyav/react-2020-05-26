@@ -31,7 +31,7 @@ function RestaurantsPage({
     return (
       <>
         <Restaurants match={match} history={history} />
-        <h2 style={{ textAlign: 'center' }}>Select restaurant</h2>
+        {/*<h2 style={{ textAlign: 'center' }}>Select restaurant</h2>*/}
         <Redirect to={`/restaurants/${firstRestaurant}`} />
       </>
     );
