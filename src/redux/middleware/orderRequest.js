@@ -25,10 +25,10 @@ export default (store) => (next) => async (action) => {
         } else {
             store.dispatch(replace('/order-success'));
             store.getState().order = {};
-        }
 
-        const response = await data.json();
-        next({ ...rest, type: type + SUCCESS, response });
+            const response = await data.json();
+            next({ ...rest, type: type + SUCCESS, response });
+        }
 
     } catch (error) {
         next({ ...rest, type: type + FAILURE, error});
