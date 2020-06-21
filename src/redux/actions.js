@@ -87,8 +87,8 @@ export const PlaceAnOrder = () => async (dispatch, getState) => {
     const response = await fetch('/api/order', config).then((res) =>
       res.json()
     );
-    dispatch({ type: PLACE_AN_ORDER + SUCCESS });
     if (response === 'ok') {
+      dispatch({ type: PLACE_AN_ORDER + SUCCESS });
       dispatch(replace('/thanks_for_order'));
       dispatch({ type: EMPTY_OUT_THE_BASKET });
     } else {
@@ -97,5 +97,6 @@ export const PlaceAnOrder = () => async (dispatch, getState) => {
     }
   } catch (error) {
     dispatch({ type: PLACE_AN_ORDER + FAILURE, error });
+    dispatch(replace('/error'));
   }
 };

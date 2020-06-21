@@ -58,6 +58,7 @@ export default (state = initialState, action) => {
     case PLACE_AN_ORDER + FAILURE:
       return {
         ...state,
+        loading: false,
         error: error || response,
       };
     default:
