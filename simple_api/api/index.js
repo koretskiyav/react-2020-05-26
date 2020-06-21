@@ -50,29 +50,25 @@ router.get('/users', function (req, res, next) {
   reply(res, mocks.users);
 });
 
-router.post('/order', function (req, res, next) {
-  const total = req.body
-    .map(
-      ({ id, amount }) =>
-        mocks.products.find((product) => product.id === id).price * amount
-    )
-    .reduce((acc, next) => acc + next, 0);
+const min = (m) => `you ordered for $${m}, but the minimum order amount is $50`;
+const max = (m) =>
+  `you ordered for $${m}, but the maximum order amount is $200`;
 
-  if (total < 50)
-    return reply(
-      res,
-      `you ordered for $${total}, but the minimum order amount is $50`,
-      3000,
-      400
-    );
-  if (total > 200)
-    return reply(
-      res,
-      `you ordered for $${total}, but the maximum order amount is $200`,
-      3000,
-      400
-    );
-  return reply(res, 'ok', 3000);
+router.post('/order', function (req, res, next) {
+  try {
+    const total = req.body
+      .map(
+        ({ id, amount }) =>
+          mocks.products.find((product) => product.id === id).price * amount
+      )
+      .reduce((acc, next) => acc + next, 0);
+
+    if (total < 50) return reply(res, min(total), 3000, 400);
+    if (total > 200) return reply(res, max(total), 3000, 400);
+    return reply(res, 'ok', 3000);
+  } catch {
+    return reply(res, 'wrong data', 1000, 400);
+  }
 });
 
 module.exports = router;
