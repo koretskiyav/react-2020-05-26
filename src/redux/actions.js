@@ -10,7 +10,7 @@ import {
   FAILURE,
   LOAD_REVIEWS,
   LOAD_PRODUCTS,
-  LOAD_USERS,
+  LOAD_USERS, ORDER_SUBMIT,
 } from './constants';
 import {
   usersLoadingSelector,
@@ -67,3 +67,9 @@ export const loadUsers = () => (dispatch, getState) => {
 
   dispatch({ type: LOAD_USERS, CallAPI: '/api/users' });
 };
+
+
+export const orderSubmit = (order) => ({
+  type: ORDER_SUBMIT,
+  orderSubmit: order
+});

@@ -7,6 +7,7 @@ import products from './products';
 import reviews from './reviews';
 import users from './users';
 import history from '../../history';
+import orderSubmitReducer from "./orderSubmit";
 
 export default combineReducers({
   router: connectRouter(history),
@@ -15,4 +16,5 @@ export default combineReducers({
   products,
   reviews,
   users,
+  orderSubmit: orderSubmitReducer
 });
