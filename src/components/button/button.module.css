@@ -39,12 +39,14 @@
   font-size: 20px;
 }
 
-.button:hover, .button:focus, .button:active {
+.button:hover,
+.button:focus,
+.button:active {
   border-color: var(--yellow-light);
   background-color: var(--yellow-light);
 }
 
-.button+button {
+.button + button {
   margin-left: 1px;
 }
 
@@ -64,12 +66,16 @@
   border: 1px solid var(--grey-dark);
 }
 
-.button.primary:hover, .button.primary:focus, .button.primary:active {
+.button.primary:hover,
+.button.primary:focus,
+.button.primary:active {
   border-color: var(--orange-light);
   background-color: var(--orange-light);
 }
 
-.button.secondary:hover, .button.secondary:focus, .button.secondary:active {
+.button.secondary:hover,
+.button.secondary:focus,
+.button.secondary:active {
   border-color: var(--grey);
   background-color: var(--grey);
 }
