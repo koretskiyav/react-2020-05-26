@@ -7,11 +7,13 @@ import logger from './middleware/logger';
 import generateId from './middleware/generateId';
 import api from './middleware/api';
 import history from '../history';
+import orderRequest from "./middleware/orderRequest";
 
 const enhancer = applyMiddleware(
   thunk,
   routerMiddleware(history),
   api,
+  orderRequest,
   generateId,
   logger
 );

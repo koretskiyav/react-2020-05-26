@@ -9,11 +9,24 @@ import './basket.css';
 import BasketRow from './basket-row';
 import BasketItem from './basket-item';
 import Button from '../button';
-import { orderProductsSelector, totalSelector } from '../../redux/selectors';
+import {orderProductsSelector, orderSubmitLoadingSelector, totalSelector} from '../../redux/selectors';
 
 import { Consumer as UserConsumer } from '../../contexts/user';
 
-function Basket({ title = 'Basket', total, orderProducts }) {
+import { Consumer as CurrencyConsumer } from '../../contexts/currency';
+import {orderSubmit} from "../../redux/actions";
+import Loader from "../loader";
+
+function Basket({ title = 'Basket', total, orderProducts, pathname, onSubmit, orderSubmitLoading }) {
+
+    const handleSubmit = () => {
+        const order = orderProducts.map(({ product, amount}) => ({
+            id: product.id,
+            amount: amount,
+        }));
+        onSubmit(order);
+    };
+
   if (!total) {
     return (
       <div className={styles.basket}>
@@ -21,6 +34,8 @@ function Basket({ title = 'Basket', total, orderProducts }) {
       </div>
     );
   }
+
+  if(orderSubmitLoading) return <Loader/>;
 
   return (
     <div className={styles.basket}>
@@ -44,19 +59,34 @@ function Basket({ title = 'Basket', total, orderProducts }) {
         ))}
       </TransitionGroup>
       <hr className={styles.hr} />
-      <BasketRow label="Sub-total" content={`${total} $`} />
+        <CurrencyConsumer>
+            { ({calcCurrency}) => <BasketRow label="Sub-total" content={ calcCurrency(total) } /> }
+        </CurrencyConsumer>
       <BasketRow label="Delivery costs:" content="FREE" />
-      <BasketRow label="total" content={`${total} $`} bold />
-      <Link to="/checkout">
-        <Button primary block>
-          checkout
-        </Button>
-      </Link>
+        <CurrencyConsumer>
+            { ({calcCurrency}) => <BasketRow label="total" content={ calcCurrency(total) } bold /> }
+        </CurrencyConsumer>
+        {(pathname !== '/checkout') ? (
+            <Link to="/checkout">
+                <Button primary block>
+                    checkout
+                </Button>
+            </Link>
+        ) : ( <Button primary block type="submit" onClick={handleSubmit}>buy now</Button> ) }
+
     </div>
   );
 }
 
-export default connect((state) => ({
-  total: totalSelector(state),
-  orderProducts: orderProductsSelector(state),
-}))(Basket);
+const mapStateToProps = (state) => ({
+    total: totalSelector(state),
+    orderProducts: orderProductsSelector(state),
+    pathname: state.router.location.pathname,
+    orderSubmitLoading: orderSubmitLoadingSelector(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+   onSubmit: (order) =>  dispatch(orderSubmit(order))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Basket);

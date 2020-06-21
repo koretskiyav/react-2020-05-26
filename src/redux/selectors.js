@@ -8,6 +8,9 @@ const usersSelector = (state) => state.users.entities;
 
 const orderSelector = (state) => state.order;
 
+export const orderSubmitSelector = (state) => state.orderSubmit;
+export const orderSubmitLoadingSelector = (state) => state.orderSubmit.loading;
+
 export const restaurantsLoadingSelector = (state) => state.restaurants.loading;
 export const restaurantsLoadedSelector = (state) => state.restaurants.loaded;
 

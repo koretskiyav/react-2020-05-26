@@ -6,10 +6,17 @@ import PlusIcon from './icons/plus.svg';
 import MinusIcon from './icons/minus.svg';
 import DeleteIcon from './icons/delete.svg';
 
+import DollarIcon from './icons/dollar.svg';
+import RubleIcon from './icons/ruble.svg';
+import EuroIcon from './icons/euro.svg';
+
 const icons = {
   plus: PlusIcon,
   minus: MinusIcon,
   delete: DeleteIcon,
+    dollar: DollarIcon,
+    ruble: RubleIcon,
+    euro: EuroIcon,
 };
 
 const Button = ({
