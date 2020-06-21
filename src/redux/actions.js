@@ -1,4 +1,4 @@
-import { replace } from 'connected-react-router';
+import { replace, push } from 'connected-react-router';
 import {
   INCREMENT,
   DECREMENT,
@@ -11,12 +11,15 @@ import {
   LOAD_REVIEWS,
   LOAD_PRODUCTS,
   LOAD_USERS,
+  PLACE_AN_ORDER,
+  EMPTY_OUT_THE_BASKET,
 } from './constants';
 import {
   usersLoadingSelector,
   usersLoadedSelector,
   reviewsLoadingSelector,
   reviewsLoadedSelector,
+  orderToDataFromFetchSelector,
 } from './selectors';
 
 export const increment = (id) => ({ type: INCREMENT, payload: { id } });
@@ -66,4 +69,33 @@ export const loadUsers = () => (dispatch, getState) => {
   if (loading || loaded) return;
 
   dispatch({ type: LOAD_USERS, CallAPI: '/api/users' });
+};
+
+export const PlaceAnOrder = () => async (dispatch, getState) => {
+  const state = getState();
+  dispatch({ type: PLACE_AN_ORDER + REQUEST });
+  try {
+    const data = orderToDataFromFetchSelector(state);
+    console.log('data: ', data);
+    const config = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    };
+    const response = await fetch('/api/order', config).then((res) =>
+      res.json()
+    );
+    dispatch({ type: PLACE_AN_ORDER + SUCCESS });
+    if (response === 'ok') {
+      dispatch(replace('/thanks_for_order'));
+      dispatch({ type: EMPTY_OUT_THE_BASKET });
+    } else {
+      dispatch({ type: PLACE_AN_ORDER + FAILURE, response });
+      dispatch(push('/error_order'));
+    }
+  } catch (error) {
+    dispatch({ type: PLACE_AN_ORDER + FAILURE, error });
+  }
 };

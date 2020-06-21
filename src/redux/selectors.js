@@ -6,7 +6,7 @@ const productsSelector = (state) => state.products.entities;
 const reviewsSelector = (state) => state.reviews.entities;
 const usersSelector = (state) => state.users.entities;
 
-const orderSelector = (state) => state.order;
+const orderSelector = (state) => state.order.entities;
 
 export const restaurantsLoadingSelector = (state) => state.restaurants.loading;
 export const restaurantsLoadedSelector = (state) => state.restaurants.loaded;
@@ -78,3 +78,18 @@ export const firstRestaurantSelector = createSelector(
     return restaurants[0]?.id;
   }
 );
+
+export const pathNameSelector = (state) => state.router.location.pathname;
+
+export const orderToDataFromFetchSelector = createSelector(
+  orderSelector,
+  (orders) => {
+    return Object.entries(orders).reduce((acc, item) => {
+      return [...acc, { id: item[0], amount: item[1] }];
+    }, []);
+  }
+);
+
+export const loadingOrderSelector = (state) => state.order.loading;
+
+export const errorOrderSelector = (state) => state.order.error;
