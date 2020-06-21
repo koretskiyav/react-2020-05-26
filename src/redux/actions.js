@@ -11,6 +11,7 @@ import {
   LOAD_REVIEWS,
   LOAD_PRODUCTS,
   LOAD_USERS,
+  BOOK_ORDER,
 } from './constants';
 import {
   usersLoadingSelector,
@@ -67,3 +68,17 @@ export const loadUsers = () => (dispatch, getState) => {
 
   dispatch({ type: LOAD_USERS, CallAPI: '/api/users' });
 };
+
+export const bookOrder = (order) => ({
+  type: BOOK_ORDER,
+  CallAPI: '/api/order',
+  CallSettings: {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(order),
+  },
+});
+
+// export const

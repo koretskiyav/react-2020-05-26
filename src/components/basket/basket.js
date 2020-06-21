@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { getLocation } from 'connected-react-router';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -9,11 +10,33 @@ import './basket.css';
 import BasketRow from './basket-row';
 import BasketItem from './basket-item';
 import Button from '../button';
-import { orderProductsSelector, totalSelector } from '../../redux/selectors';
 
+import {
+  orderProductsSelector,
+  totalSelector,
+  orderToBookSelector,
+  orderLoadedSelector,
+  orderLoadingSelector,
+} from '../../redux/selectors';
+import { bookOrder } from '../../redux/actions';
+
+import ConcurrencyContext from '../../contexts/currency';
 import { Consumer as UserConsumer } from '../../contexts/user';
+import Loader from '../loader';
 
-function Basket({ title = 'Basket', total, orderProducts }) {
+function Basket({
+  title = 'Basket',
+  total,
+  orderProducts,
+  location,
+  orderToBook,
+  bookOrder,
+  loading,
+  loaded,
+}) {
+  const { concurrency, validateConcurrency } = useContext(ConcurrencyContext);
+  const { pathname } = location;
+
   if (!total) {
     return (
       <div className={styles.basket}>
@@ -21,6 +44,12 @@ function Basket({ title = 'Basket', total, orderProducts }) {
       </div>
     );
   }
+
+  const handleBook = (order) => (e) => {
+    bookOrder(order);
+  };
+
+  if (loading) return <Loader />;
 
   return (
     <div className={styles.basket}>
@@ -44,19 +73,41 @@ function Basket({ title = 'Basket', total, orderProducts }) {
         ))}
       </TransitionGroup>
       <hr className={styles.hr} />
-      <BasketRow label="Sub-total" content={`${total} $`} />
+      <BasketRow
+        label="Sub-total"
+        content={`${validateConcurrency(total, concurrency)}`}
+      />
       <BasketRow label="Delivery costs:" content="FREE" />
-      <BasketRow label="total" content={`${total} $`} bold />
-      <Link to="/checkout">
-        <Button primary block>
-          checkout
+      <BasketRow
+        label="total"
+        content={`${validateConcurrency(total, concurrency)}`}
+        bold
+      />
+      {pathname === '/checkout' ? (
+        <Button primary block onClick={handleBook(orderToBook)}>
+          book
         </Button>
-      </Link>
+      ) : (
+        <Link to="/checkout">
+          <Button primary block>
+            checkout
+          </Button>
+        </Link>
+      )}
     </div>
   );
 }
 
-export default connect((state) => ({
-  total: totalSelector(state),
-  orderProducts: orderProductsSelector(state),
-}))(Basket);
+export default connect(
+  (state) => ({
+    total: totalSelector(state),
+    orderProducts: orderProductsSelector(state),
+    location: getLocation(state),
+    orderToBook: orderToBookSelector(state),
+    loading: orderLoadingSelector(state),
+    loaded: orderLoadedSelector(state),
+  }),
+  {
+    bookOrder,
+  }
+)(Basket);
