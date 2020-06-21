@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 import Restaurants from '../restaurants';
 import Loader from '../loader';
 
@@ -29,7 +29,10 @@ function RestaurantsPage({
     return (
       <>
         <Restaurants match={match} history={history} />
-        <h2 style={{ textAlign: 'center' }}>Select restaurant</h2>
+        <Redirect
+          from="/restaurants"
+          to={`/restaurants/${restaurants[0].id}`}
+        />
       </>
     );
   }

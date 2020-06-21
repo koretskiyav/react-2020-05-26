@@ -4,3 +4,11 @@
   max-width: 884px;
   width: 100%;
 }
+
+.review-item-animation-fade {
+  opacity: 0;
+}
+.review-item-animation-fade-appear {
+  opacity: 1;
+  transition: opacity 1000ms ease-in-out;
+}

@@ -1,0 +1,6 @@
+.togglers {
+    position: absolute;
+    color: var(--white);
+    left: 20px;
+    top: 20px;
+}
