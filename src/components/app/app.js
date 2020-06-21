@@ -4,6 +4,7 @@ import RestaurantsPage from '../pages/restaurants-page';
 import Header from '../header';
 import Basket from '../basket';
 import { Provider as UserProvider } from '../../contexts/user';
+import ErrorOrderPage from '../pages/error-order-page';
 
 const App = () => {
   const [userName, setName] = useState('Ivan');
@@ -20,6 +21,8 @@ const App = () => {
           <Route path="/checkout" component={Basket} />
           <Route path="/restaurants" component={RestaurantsPage} />
           <Route path="/error" render={() => <h1>Error Page</h1>} />
+          <Route path="/success" render={() => <h1>Thank you for order!</h1>} />
+          <Route path="/orderError" component={ErrorOrderPage} />
           <Redirect from="/" to="/restaurants" />
         </Switch>
       </UserProvider>

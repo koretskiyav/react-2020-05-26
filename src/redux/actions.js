@@ -11,6 +11,8 @@ import {
   LOAD_REVIEWS,
   LOAD_PRODUCTS,
   LOAD_USERS,
+  ADD_ORDER,
+  ERROR,
 } from './constants';
 import {
   usersLoadingSelector,
@@ -39,6 +41,35 @@ export const loadProducts = (restaurantId) => ({
   CallAPI: `/api/products?id=${restaurantId}`,
   restaurantId,
 });
+
+export const addOrder = async (order, dispatch) => {
+  try {
+    dispatch({ type: ADD_ORDER + REQUEST });
+    const products = order.map((product) => ({
+      id: product.product.id,
+      amount: product.amount,
+    }));
+    const response = await fetch('api/order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      cache: 'no-cache',
+      body: JSON.stringify(products),
+    })
+      .then((res) => res.json())
+      .then((data) => data);
+
+    if (response === 'ok') {
+      dispatch({ type: ADD_ORDER + SUCCESS, response });
+      dispatch(replace('/success'));
+    } else {
+      dispatch({ type: ADD_ORDER + ERROR, response });
+      dispatch(replace('/orderError'));
+    }
+  } catch (error) {
+    dispatch({ type: ADD_ORDER + FAILURE, error });
+    dispatch(replace('/orderError'));
+  }
+};
 
 export const loadReviews = (restaurantId) => async (dispatch, getState) => {
   const state = getState();
