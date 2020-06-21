@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -19,6 +19,7 @@ import {
 import { Consumer as UserConsumer } from '../../contexts/user';
 import { addOrder } from '../../redux/actions';
 import Loader from '../loader';
+import currencyContext from '../../contexts/currency';
 
 function Basket({
   title = 'Basket',
@@ -29,6 +30,7 @@ function Basket({
   loading,
   loaded,
 }) {
+  const { currency, transferCurrency } = useContext(currencyContext);
   const order = orderProducts;
   const handleSubmit = (ev) => {
     ev.preventDefault();
@@ -80,16 +82,16 @@ function Basket({
             <BasketItem
               product={product}
               amount={amount}
-              subtotal={subtotal}
+              subtotal={transferCurrency(subtotal, currency)}
               restaurantId={restaurantId}
             />
           </CSSTransition>
         ))}
       </TransitionGroup>
       <hr className={styles.hr} />
-      <BasketRow label="Sub-total" content={`${total} $`} />
+      <BasketRow label="Sub-total" content={`${transferCurrency(total, currency)} ${currency.sign}`} />
       <BasketRow label="Delivery costs:" content="FREE" />
-      <BasketRow label="total" content={`${total} $`} bold />
+      <BasketRow label="total" content={`${transferCurrency(total, currency)} ${currency.sign}`} bold />
       {button}
     </div>
   );
