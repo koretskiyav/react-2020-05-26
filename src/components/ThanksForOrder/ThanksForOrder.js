@@ -1,9 +1,10 @@
 import React from 'react';
 import styles from './ThanksForOrder.module.css';
 import Button from '../button';
-import { withRouter } from 'react-router-dom';
+import { push } from 'connected-react-router';
+import { connect } from 'react-redux';
 
-const ThanksForOrder = ({ history: { push } }) => {
+const ThanksForOrder = ({ push }) => {
   return (
     <div className={styles.root}>
       <div>Thank's For Order</div>
@@ -14,4 +15,4 @@ const ThanksForOrder = ({ history: { push } }) => {
   );
 };
 
-export default withRouter(ThanksForOrder);
+export default connect(null, { push })(ThanksForOrder);

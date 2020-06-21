@@ -8,3 +8,7 @@
   font-weight: bold;
   text-align: center;
 }
+
+.root > div {
+  margin: 1rem 0;
+}
