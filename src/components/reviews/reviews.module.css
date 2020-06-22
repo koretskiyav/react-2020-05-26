@@ -4,3 +4,11 @@
   max-width: 884px;
   width: 100%;
 }
+
+.animation-enter {
+  opacity: 0;
+}
+.animation-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
