@@ -19,6 +19,7 @@ import {
 import { Consumer as UserConsumer } from '../../contexts/user';
 import CurrencyContext from '../../contexts/currency';
 import { PlaceAnOrder } from '../../redux/actions';
+import Loader from '../loader';
 
 function Basket({
   title = 'Basket',
@@ -40,7 +41,11 @@ function Basket({
 
   return (
     <div className={styles.basket}>
-      {loading && <div className={styles.freeze} />}
+      {loading && (
+        <div className={styles.freeze}>
+          <Loader />
+        </div>
+      )}
       <h4 className={styles.title}>
         <UserConsumer>{({ userName }) => `${userName}'s basket`}</UserConsumer>
       </h4>

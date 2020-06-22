@@ -11,6 +11,9 @@ const ThanksForOrder = ({ push }) => {
       <Button secondary block onClick={() => push('/checkout')}>
         Return to basket and check that it's empty
       </Button>
+      <Button secondary block onClick={() => push('/')}>
+        Return to menu
+      </Button>
     </div>
   );
 };

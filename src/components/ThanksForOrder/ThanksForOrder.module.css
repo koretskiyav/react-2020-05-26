@@ -6,9 +6,11 @@
   height: calc(100vh - 6rem);
   font-size: 3rem;
   font-weight: bold;
+  font-style: italic;
+  color: #af7317;
   text-align: center;
 }
 
-.root > div {
+.root > * {
   margin: 1rem 0;
 }
