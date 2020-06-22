@@ -14,7 +14,7 @@ const Header = ({ currency, loadCurrency, loading, loaded }) => {
   const { userName, setName } = useContext(userContext);
 
   useEffect(() => {
-    if (!loading && !loaded /* loadCurrency() */);
+    if (!loading && !loaded) loadCurrency();
   }, []); //eslint-disable-line
   return (
     <header className={styles.header} onClick={() => setName('Andrey')}>
