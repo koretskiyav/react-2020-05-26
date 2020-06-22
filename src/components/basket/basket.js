@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -9,11 +9,28 @@ import './basket.css';
 import BasketRow from './basket-row';
 import BasketItem from './basket-item';
 import Button from '../button';
-import { orderProductsSelector, totalSelector } from '../../redux/selectors';
+import {
+  loadingOrderSelector,
+  orderProductsSelector,
+  pathNameSelector,
+  totalSelector,
+} from '../../redux/selectors';
 
 import { Consumer as UserConsumer } from '../../contexts/user';
+import CurrencyContext from '../../contexts/currency';
+import { PlaceAnOrder } from '../../redux/actions';
+import Loader from '../loader';
 
-function Basket({ title = 'Basket', total, orderProducts }) {
+function Basket({
+  title = 'Basket',
+  total,
+  orderProducts,
+  pathname,
+  PlaceAnOrder,
+  loading,
+}) {
+  const { getPrice, currency } = useContext(CurrencyContext);
+
   if (!total) {
     return (
       <div className={styles.basket}>
@@ -24,6 +41,11 @@ function Basket({ title = 'Basket', total, orderProducts }) {
 
   return (
     <div className={styles.basket}>
+      {loading && (
+        <div className={styles.freeze}>
+          <Loader />
+        </div>
+      )}
       <h4 className={styles.title}>
         <UserConsumer>{({ userName }) => `${userName}'s basket`}</UserConsumer>
       </h4>
@@ -44,19 +66,32 @@ function Basket({ title = 'Basket', total, orderProducts }) {
         ))}
       </TransitionGroup>
       <hr className={styles.hr} />
-      <BasketRow label="Sub-total" content={`${total} $`} />
+      <BasketRow label="Sub-total" content={`${getPrice(total, currency)}`} />
       <BasketRow label="Delivery costs:" content="FREE" />
-      <BasketRow label="total" content={`${total} $`} bold />
-      <Link to="/checkout">
-        <Button primary block>
-          checkout
+      <BasketRow label="total" content={`${getPrice(total, currency)}`} bold />
+      {pathname !== '/checkout' ? (
+        <Link to="/checkout">
+          <Button primary block>
+            checkout
+          </Button>
+        </Link>
+      ) : (
+        <Button primary block onClick={() => PlaceAnOrder()}>
+          place an order
         </Button>
-      </Link>
+      )}
     </div>
   );
 }
 
-export default connect((state) => ({
-  total: totalSelector(state),
-  orderProducts: orderProductsSelector(state),
-}))(Basket);
+export default connect(
+  (state) => ({
+    total: totalSelector(state),
+    orderProducts: orderProductsSelector(state),
+    pathname: pathNameSelector(state),
+    loading: loadingOrderSelector(state),
+  }),
+  {
+    PlaceAnOrder,
+  }
+)(Basket);
