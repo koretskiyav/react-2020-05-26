@@ -13,8 +13,8 @@ export default () => {
       value={currentCurrency}
     >
       <option value="usd">$</option>
-      <option value="rub">R</option>
-      <option value="eur">Э</option>
+      <option value="rub">₽</option>
+      <option value="eur">€</option>
     </select>
   );
 };

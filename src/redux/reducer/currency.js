@@ -6,7 +6,20 @@ const initialState = {
   loading: false,
   loaded: false,
   error: null,
-  entities: {},
+  entities: {
+    rub: {
+      value: 69.7,
+      symbol: '₽',
+    },
+    usd: {
+      value: 1,
+      symbol: '$',
+    },
+    eur: {
+      value: 0.89,
+      symbol: '€',
+    },
+  },
 };
 
 export default produce((draft = initialState, action) => {
@@ -18,19 +31,25 @@ export default produce((draft = initialState, action) => {
       draft.loading = true;
       break;
     }
-    // короче я хотел сделать чтобы курсы валют брались из ЦБ, и так-то получилось.
-    // но когда дошел до селекторов я понял что свернул куда-то не туда.
-    // если в меню можно просто заменять price каждого товара в зависимости от
-    // валюты в контексте, то делать другие селекторы для тотала и сабтотал'ов
-    // в корзине это плохая идея. не пойму как это сделать
 
     case LOAD_CURRENCY + SUCCESS: {
       draft.loading = false;
       draft.loaded = true;
       draft.entities = {
-        usd: 1,
-        rub: response.Valute.USD.Value,
-        eur: (response.Valute.USD.Value / response.Valute.EUR.Value).toFixed(2),
+        usd: {
+          value: 1,
+          symbol: '$',
+        },
+        rub: {
+          value: response.Valute.USD.Value,
+          symbol: '₽',
+        },
+        eur: {
+          symbol: '€',
+          value: (
+            response.Valute.USD.Value / response.Valute.EUR.Value
+          ).toFixed(2),
+        },
       };
       break;
     }

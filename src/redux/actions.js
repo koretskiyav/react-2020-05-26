@@ -12,6 +12,7 @@ import {
   LOAD_PRODUCTS,
   LOAD_USERS,
   LOAD_CURRENCY,
+  PAY_ORDER,
 } from './constants';
 import {
   usersLoadingSelector,
@@ -80,4 +81,32 @@ export const loadCurrency = () => (dispatch, getState) => {
     type: LOAD_CURRENCY,
     CallAPI: 'https://www.cbr-xml-daily.ru/daily_json.js',
   });
+};
+
+export const payOrder = async (order, dispatch) => {
+  try {
+    dispatch({ type: PAY_ORDER + REQUEST });
+
+    const data = order.map(({ product: { id }, amount }) => ({
+      id,
+      amount,
+    }));
+    const response = await fetch('api/order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    })
+      .then((r) => r.json())
+      .then((data) => data);
+
+    if (response === 'ok') {
+      dispatch({ type: PAY_ORDER + SUCCESS });
+      dispatch(replace('/paid '));
+    } else {
+      throw new Error(response);
+    }
+  } catch (error) {
+    dispatch({ type: PAY_ORDER + FAILURE, error });
+    dispatch(replace('/paid '));
+  }
 };

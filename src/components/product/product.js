@@ -9,11 +9,11 @@ import Button from '../button';
 import {
   productAmountSelector,
   productSelector,
-  priceSelector,
+  currenciesSelector,
 } from '../../redux/selectors';
 
-const Product = ({ product, amount = 0, price, increment, decrement }) => {
-  const { currentCurrency } = useContext(currencyContext);
+const Product = ({ product, amount = 0, currencies, increment, decrement }) => {
+  const { currentCurrency, calculatePrice } = useContext(currencyContext);
 
   if (!product) return null;
 
@@ -23,7 +23,9 @@ const Product = ({ product, amount = 0, price, increment, decrement }) => {
         <div>
           <h4 className={styles.title}>{product.name}</h4>
           <p className={styles.description}>{product.ingredients.join(', ')}</p>
-          <div className={styles.price}>{price} </div>
+          <div className={styles.price}>
+            {calculatePrice(product.price, currencies[currentCurrency])}{' '}
+          </div>
         </div>
         <div>
           <div className={styles.counter}>
@@ -63,7 +65,7 @@ Product.propTypes = {
 const mapStateToProps = (state, props) => ({
   amount: productAmountSelector(state, props),
   product: productSelector(state, props),
-  price: priceSelector(state, props),
+  currencies: currenciesSelector(state),
 });
 
 const mapDispatchToProps = {

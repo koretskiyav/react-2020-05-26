@@ -6,7 +6,10 @@ const productsSelector = (state) => state.products.entities;
 const reviewsSelector = (state) => state.reviews.entities;
 const usersSelector = (state) => state.users.entities;
 
-const orderSelector = (state) => state.order;
+const orderSelector = (state) => state.order.entities;
+export const orderLoadingSelector = (state) => state.order.loading;
+export const orderLoadedSelector = (state) => state.order.loaded;
+export const orderErrorSelector = (state) => state.order.error;
 
 export const restaurantsLoadingSelector = (state) => state.restaurants.loading;
 export const restaurantsLoadedSelector = (state) => state.restaurants.loaded;
@@ -77,26 +80,4 @@ export const totalSelector = createSelector(
     orderProducts.reduce((acc, { subtotal }) => acc + subtotal, 0)
 );
 
-const getCurrencySelector = (state, currentCurrency) =>
-  state.currency.entities[currentCurrency];
-
-export const priceSelector = (state, props) => {
-  const { currentCurrency } = props;
-  const currentProduct = productSelector(state, props);
-  if (currentProduct) {
-    switch (currentCurrency) {
-      case 'usd':
-        return `${currentProduct.price} $`;
-      case 'eur':
-        return `${(
-          currentProduct.price * getCurrencySelector(state, currentCurrency)
-        ).toFixed(2)} €`;
-      case 'rub':
-        return `${(
-          currentProduct.price * getCurrencySelector(state, currentCurrency)
-        ).toFixed(2)} ₽`;
-      default:
-        return `${currentProduct.price} $`;
-    }
-  }
-};
+export const currenciesSelector = (state) => state.currency.entities;
