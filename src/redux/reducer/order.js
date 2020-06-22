@@ -1,4 +1,4 @@
-import { INCREMENT, DECREMENT, REMOVE } from '../constants';
+import { INCREMENT, DECREMENT, REMOVE, ORDER_RESET } from '../constants';
 
 // { [productId]: amount }
 export default (state = {}, action) => {
@@ -14,6 +14,9 @@ export default (state = {}, action) => {
         ...state,
         [payload.id]: Math.max((state[payload.id] || 0) - 1, 0),
       };
+    case ORDER_RESET: {
+      return {};
+    }
     case REMOVE:
       return {
         ...state,

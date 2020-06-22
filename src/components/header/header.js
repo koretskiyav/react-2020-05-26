@@ -4,14 +4,17 @@ import Logo from './logo';
 import styles from './header.module.css';
 
 import userContext from '../../contexts/user';
+import courseContext from '../../contexts/course';
 
 const Header = () => {
   const { userName, setName } = useContext(userContext);
+  const { is_rur, onToggleCourse } = useContext(courseContext);
 
   return (
-    <header className={styles.header} onClick={() => setName('Andrey')}>
+    <header className={styles.header}>
       <Logo />
-      <h2>{userName}</h2>
+      <button onClick={onToggleCourse}>{is_rur ? 'to USD' : 'to RUR'}</button>
+      <h2 onClick={() => setName('Andrey')}>{userName}</h2>
     </header>
   );
 };
