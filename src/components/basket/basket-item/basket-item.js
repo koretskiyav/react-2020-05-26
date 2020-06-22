@@ -16,7 +16,7 @@ function BasketItem({
   decrement,
   remove,
 }) {
-  const { getPrice } = useContext(CurrencyContext);
+  const { getPrice, currency } = useContext(CurrencyContext);
   return (
     <div className={styles.basketItem}>
       <div className={styles.name}>
@@ -40,7 +40,9 @@ function BasketItem({
             small
           />
         </div>
-        <p className={cn(styles.count, styles.price)}>{getPrice(subtotal)}</p>
+        <p className={cn(styles.count, styles.price)}>
+          {getPrice(subtotal, currency)}
+        </p>
         <Button
           onClick={() => remove(product.id)}
           icon="delete"

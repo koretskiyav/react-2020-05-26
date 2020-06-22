@@ -8,14 +8,14 @@ import { push } from 'connected-react-router';
 import CurrencyContext from '../../contexts/currency';
 
 const FailureOrder = ({ error, push }) => {
-  const { getPrice } = useContext(CurrencyContext);
+  const { getPrice, currency } = useContext(CurrencyContext);
 
   const reformatError = useMemo(
     () =>
       error?.replace(/\$(\d+)/g, (_, $1) => {
-        return getPrice($1);
+        return getPrice($1, currency);
       }),
-    [error, getPrice]
+    [error, getPrice, currency]
   );
   // я знаю что регулярки плохо использовать, но с сервера только в $ приходил ответ
 

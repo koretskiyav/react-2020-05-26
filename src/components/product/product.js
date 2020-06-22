@@ -10,7 +10,7 @@ import { productAmountSelector, productSelector } from '../../redux/selectors';
 import CurrencyContext from '../../contexts/currency';
 
 const Product = ({ product, amount = 0, increment, decrement }) => {
-  const { getPrice } = useContext(CurrencyContext);
+  const { getPrice, currency } = useContext(CurrencyContext);
 
   if (!product) return null;
 
@@ -21,7 +21,9 @@ const Product = ({ product, amount = 0, increment, decrement }) => {
           <h4 className={styles.title}>{product.name}</h4>
           <p className={styles.description}>{product.ingredients.join(', ')}</p>
           {/*<div className={styles.price}>{product.price} $</div>*/}
-          <div className={styles.price}>{getPrice(product.price)}</div>
+          <div className={styles.price}>
+            {getPrice(product.price, currency)}
+          </div>
         </div>
         <div>
           <div className={styles.counter}>

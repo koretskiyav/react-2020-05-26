@@ -28,7 +28,7 @@ function Basket({
   PlaceAnOrder,
   loading,
 }) {
-  const { getPrice } = useContext(CurrencyContext);
+  const { getPrice, currency } = useContext(CurrencyContext);
 
   if (!total) {
     return (
@@ -61,9 +61,9 @@ function Basket({
         ))}
       </TransitionGroup>
       <hr className={styles.hr} />
-      <BasketRow label="Sub-total" content={`${getPrice(total)}`} />
+      <BasketRow label="Sub-total" content={`${getPrice(total, currency)}`} />
       <BasketRow label="Delivery costs:" content="FREE" />
-      <BasketRow label="total" content={`${getPrice(total)}`} bold />
+      <BasketRow label="total" content={`${getPrice(total, currency)}`} bold />
       {pathname !== '/checkout' ? (
         <Link to="/checkout">
           <Button primary block>
