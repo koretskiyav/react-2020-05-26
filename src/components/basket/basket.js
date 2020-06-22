@@ -9,11 +9,24 @@ import './basket.css';
 import BasketRow from './basket-row';
 import BasketItem from './basket-item';
 import Button from '../button';
-import { orderProductsSelector, totalSelector } from '../../redux/selectors';
+import {
+  orderProductsSelector,
+  totalSelector,
+  basketSelector,
+} from '../../redux/selectors';
+import { onCheckout } from '../../redux/actions';
 
 import { Consumer as UserConsumer } from '../../contexts/user';
+import Loader from '../loader';
 
-function Basket({ title = 'Basket', total, orderProducts }) {
+function Basket({
+  title = 'Basket',
+  total,
+  orderProducts,
+  onCheckout,
+  block,
+  error,
+}) {
   if (!total) {
     return (
       <div className={styles.basket}>
@@ -22,8 +35,15 @@ function Basket({ title = 'Basket', total, orderProducts }) {
     );
   }
 
+  if (block) return <Loader />;
+
   return (
     <div className={styles.basket}>
+      {error && (
+        <h4 className={styles.title} style={{ color: 'red' }}>
+          {error}
+        </h4>
+      )}
       <h4 className={styles.title}>
         <UserConsumer>{({ userName }) => `${userName}'s basket`}</UserConsumer>
       </h4>
@@ -48,7 +68,7 @@ function Basket({ title = 'Basket', total, orderProducts }) {
       <BasketRow label="Delivery costs:" content="FREE" />
       <BasketRow label="total" content={`${total} $`} bold />
       <Link to="/checkout">
-        <Button primary block>
+        <Button primary block onClick={onCheckout}>
           checkout
         </Button>
       </Link>
@@ -56,7 +76,11 @@ function Basket({ title = 'Basket', total, orderProducts }) {
   );
 }
 
-export default connect((state) => ({
-  total: totalSelector(state),
-  orderProducts: orderProductsSelector(state),
-}))(Basket);
+export default connect(
+  (state) => ({
+    total: totalSelector(state),
+    orderProducts: orderProductsSelector(state),
+    ...basketSelector(state),
+  }),
+  { onCheckout }
+)(Basket);

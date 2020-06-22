@@ -1,4 +1,4 @@
-import { replace } from 'connected-react-router';
+import { replace, push } from 'connected-react-router';
 import {
   INCREMENT,
   DECREMENT,
@@ -11,6 +11,8 @@ import {
   LOAD_REVIEWS,
   LOAD_PRODUCTS,
   LOAD_USERS,
+  POST_BASKET,
+  ORDER_RESET,
 } from './constants';
 import {
   usersLoadingSelector,
@@ -66,4 +68,42 @@ export const loadUsers = () => (dispatch, getState) => {
   if (loading || loaded) return;
 
   dispatch({ type: LOAD_USERS, CallAPI: '/api/users' });
+};
+
+export const onCheckout = (event) => async (dispatch, getState) => {
+  const state = getState();
+
+  if (state.router.location.pathname !== '/checkout') return;
+
+  event.preventDefault();
+
+  dispatch({ type: POST_BASKET + REQUEST });
+
+  try {
+    const init = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(
+        Object.entries(state.order).reduce(
+          (acc, [id, amount]) => [...acc, { id, amount }],
+          []
+        )
+      ),
+    };
+
+    const response = await fetch('/api/order', init);
+
+    if (response.status !== 200) {
+      dispatch({ type: POST_BASKET + FAILURE, payload: await response.json() });
+      return;
+    }
+  } catch (error) {
+    dispatch({ type: POST_BASKET + FAILURE, payload: error });
+  }
+
+  dispatch({ type: POST_BASKET + SUCCESS });
+  dispatch({ type: ORDER_RESET });
+  dispatch(push('/success'));
 };

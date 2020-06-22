@@ -21,6 +21,7 @@ const App = () => {
           <Route path="/checkout" component={Basket} />
           <Route path="/restaurants" component={RestaurantsPage} />
           <Route path="/error" render={() => <h1>Error Page</h1>} />
+          <Route path="/success" render={() => <h1>Спасибо за заказ!</h1>} />
           <Route path="/" render={() => <div>404 - not found</div>} />
         </Switch>
       </UserProvider>
