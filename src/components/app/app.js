@@ -13,8 +13,7 @@ import FailureOrder from '../FailureOrder/FailureOrder';
 import ThanksForOrder from '../ThanksForOrder/ThanksForOrder';
 
 const App = () => {
-  console.log('Render App'); // при выборе валюты перерендеривается все приложение полностью, как можно это оптимизировать?
-  // кроме того, дополнительный перерендер когда просто кликаешь на выбор валюты в первый раз
+  console.log('Render App'); // при выборе валюты перерендеривается все приложение полностью, как-то можно это оптимизировать?
   const [userName, setName] = useState('Ivan');
   const [currency, setCurrency] = useState(currencies[0]);
 
