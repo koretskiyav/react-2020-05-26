@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 import Restaurants from '../restaurants';
 import Loader from '../loader';
 
@@ -34,7 +34,12 @@ function RestaurantsPage({
     );
   }
 
-  return <Route path="/restaurants/:restId" component={Restaurants} />;
+  return (
+    <>
+      <Route path="/restaurants/:restId" component={Restaurants} />
+      <Redirect from="/restaurants" to={`/restaurants/${restaurants[0].id}`} />
+    </>
+  );
 }
 
 export default connect(

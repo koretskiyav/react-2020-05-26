@@ -6,10 +6,18 @@ const productsSelector = (state) => state.products.entities;
 const reviewsSelector = (state) => state.reviews.entities;
 const usersSelector = (state) => state.users.entities;
 
-const orderSelector = (state) => state.order;
+const orderSelector = (state) => state.order.entities;
+export const orderLoadingSelector = (state) => state.order.loading;
+export const orderLoadedSelector = (state) => state.order.loaded;
+export const orderErrorSelector = (state) => state.order.error;
 
 export const restaurantsLoadingSelector = (state) => state.restaurants.loading;
 export const restaurantsLoadedSelector = (state) => state.restaurants.loaded;
+
+// curr
+export const currencySelector = (state) => state.currency.entities;
+export const currencyLoadingSelector = (state) => state.currency.loading;
+export const currencyLoadedSelector = (state) => state.currency.loaded;
 
 export const productsLoadingSelector = (state, props) =>
   state.products.loading[props.restaurantId];
@@ -71,3 +79,5 @@ export const totalSelector = createSelector(
   (orderProducts) =>
     orderProducts.reduce((acc, { subtotal }) => acc + subtotal, 0)
 );
+
+export const currenciesSelector = (state) => state.currency.entities;

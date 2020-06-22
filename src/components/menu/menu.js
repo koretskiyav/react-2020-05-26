@@ -12,7 +12,7 @@ import Product from '../product';
 
 import styles from './menu.module.css';
 import Basket from '../basket';
-
+import currencyContext from '../../contexts/currency';
 class Menu extends React.Component {
   static propTypes = {
     menu: PropTypes.arrayOf(
@@ -70,7 +70,7 @@ class Menu extends React.Component {
     );
   }
 }
-
+Menu.contextType = currencyContext;
 Menu.propTypes = {
   menu: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
