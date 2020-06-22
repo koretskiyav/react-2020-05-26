@@ -8,7 +8,7 @@ import {
   Provider as CurrencyProvider,
   currencies,
   getPrice,
-} from '../../contexts/currency';
+} from '../../contexts/currency'; // не уверен на счет такого импорта, но где иначе хранить функцию и массив валют?
 import FailureOrder from '../FailureOrder/FailureOrder';
 import ThanksForOrder from '../ThanksForOrder/ThanksForOrder';
 
