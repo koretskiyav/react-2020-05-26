@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { connect } from 'react-redux';
 
 import PropTypes from 'prop-types';
 import styles from './product.module.css';
 import { increment, decrement } from '../../redux/actions';
-
+import currencyContext from '../../contexts/currency';
 import Button from '../button';
-import { productAmountSelector, productSelector } from '../../redux/selectors';
+import {
+  productAmountSelector,
+  productSelector,
+  priceSelector,
+} from '../../redux/selectors';
 
-const Product = ({ product, amount = 0, increment, decrement }) => {
+const Product = ({ product, amount = 0, price, increment, decrement }) => {
+  const { currentCurrency } = useContext(currencyContext);
+
   if (!product) return null;
 
   return (
@@ -17,7 +23,7 @@ const Product = ({ product, amount = 0, increment, decrement }) => {
         <div>
           <h4 className={styles.title}>{product.name}</h4>
           <p className={styles.description}>{product.ingredients.join(', ')}</p>
-          <div className={styles.price}>{product.price} $</div>
+          <div className={styles.price}>{price} </div>
         </div>
         <div>
           <div className={styles.counter}>
@@ -57,6 +63,7 @@ Product.propTypes = {
 const mapStateToProps = (state, props) => ({
   amount: productAmountSelector(state, props),
   product: productSelector(state, props),
+  price: priceSelector(state, props),
 });
 
 const mapDispatchToProps = {

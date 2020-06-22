@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch,Redirect  } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import RestaurantsPage from '../pages/restaurants-page';
 import Header from '../header';
 import Basket from '../basket';
 import { Provider as UserProvider } from '../../contexts/user';
-
+import { Provider as CurrencyProvider } from '../../contexts/currency';
+import Paid from '../paid';
 const App = () => {
   const [userName, setName] = useState('Ivan');
+  const [currentCurrency, setCurrentCurrency] = useState('usd');
 
   useEffect(() => {
     // setInterval(() => setName(Math.random().toString()), 3000);
@@ -15,14 +17,18 @@ const App = () => {
   return (
     <div>
       <UserProvider value={{ userName, setName }}>
-        <Header />
-        <Switch>
-          <Route path="/checkout" component={Basket} />
-          <Route path="/restaurants" component={RestaurantsPage} />
-          <Route path="/error" render={() => <h1>Error Page</h1>} />
-          <Route path="/" render={() => <div>404 - not found</div>} />
-          <Redirect from='/' to='/restaurants' />
-        </Switch>
+        <CurrencyProvider value={{ currentCurrency, setCurrentCurrency }}>
+          <Header />
+          <Switch>
+            <Route path="/checkout" component={Basket} />
+            <Route path="/restaurants" component={RestaurantsPage} />
+            <Route path="/error" render={() => <h1>Error Page</h1>} />
+            <Route path="/paid" component={Paid} />
+            <Route path="/" render={() => <div>404 - not found</div>} />
+
+            {/*  <Redirect from='/' to='/restaurants' /> */}
+          </Switch>
+        </CurrencyProvider>
       </UserProvider>
     </div>
   );

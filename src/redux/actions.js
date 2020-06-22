@@ -11,6 +11,7 @@ import {
   LOAD_REVIEWS,
   LOAD_PRODUCTS,
   LOAD_USERS,
+  LOAD_CURRENCY,
 } from './constants';
 import {
   usersLoadingSelector,
@@ -66,4 +67,17 @@ export const loadUsers = () => (dispatch, getState) => {
   if (loading || loaded) return;
 
   dispatch({ type: LOAD_USERS, CallAPI: '/api/users' });
+};
+
+export const loadCurrency = () => (dispatch, getState) => {
+  const state = getState();
+  const loading = usersLoadingSelector(state);
+  const loaded = usersLoadedSelector(state);
+
+  if (loading || loaded) return;
+
+  dispatch({
+    type: LOAD_CURRENCY,
+    CallAPI: 'https://www.cbr-xml-daily.ru/daily_json.js',
+  });
 };
