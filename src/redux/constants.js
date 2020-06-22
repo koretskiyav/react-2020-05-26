@@ -14,3 +14,5 @@ export const LOAD_REVIEWS = 'LOAD_REVIEWS';
 export const LOAD_USERS = 'LOAD_USERS';
 
 export const POST_BASKET = 'POST_BASKET';
+
+export const RUR_COURSES = 60;

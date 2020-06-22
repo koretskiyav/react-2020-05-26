@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { connect } from 'react-redux';
 
 import PropTypes from 'prop-types';
 import styles from './product.module.css';
 import { increment, decrement } from '../../redux/actions';
-
+import courseContext from '../../contexts/course';
 import Button from '../button';
 import { productAmountSelector, productSelector } from '../../redux/selectors';
+import { printPrice } from '../../redux/utils';
 
 const Product = ({ product, amount = 0, increment, decrement }) => {
+  const { is_rur } = useContext(courseContext);
+
   if (!product) return null;
 
   return (
@@ -17,7 +20,9 @@ const Product = ({ product, amount = 0, increment, decrement }) => {
         <div>
           <h4 className={styles.title}>{product.name}</h4>
           <p className={styles.description}>{product.ingredients.join(', ')}</p>
-          <div className={styles.price}>{product.price} $</div>
+          <div className={styles.price}>
+            {printPrice(is_rur, product.price)}
+          </div>
         </div>
         <div>
           <div className={styles.counter}>

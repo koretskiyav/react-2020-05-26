@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import styles from './basket.module.css';
 import './basket.css';
-
+import courseContext from '../../contexts/course';
 import BasketRow from './basket-row';
 import BasketItem from './basket-item';
 import Button from '../button';
@@ -18,6 +18,7 @@ import { onCheckout } from '../../redux/actions';
 
 import { Consumer as UserConsumer } from '../../contexts/user';
 import Loader from '../loader';
+import { printPrice } from '../../redux/utils';
 
 function Basket({
   title = 'Basket',
@@ -27,6 +28,8 @@ function Basket({
   block,
   error,
 }) {
+  const { is_rur } = useContext(courseContext);
+
   if (!total) {
     return (
       <div className={styles.basket}>
@@ -64,9 +67,9 @@ function Basket({
         ))}
       </TransitionGroup>
       <hr className={styles.hr} />
-      <BasketRow label="Sub-total" content={`${total} $`} />
+      <BasketRow label="Sub-total" content={printPrice(is_rur, total)} />
       <BasketRow label="Delivery costs:" content="FREE" />
-      <BasketRow label="total" content={`${total} $`} bold />
+      <BasketRow label="total" content={printPrice(is_rur, total)} bold />
       <Link to="/checkout">
         <Button primary block onClick={onCheckout}>
           checkout
